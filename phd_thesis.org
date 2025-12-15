@@ -1,0 +1,370 @@
+:PROPERTIES:
+:ID:       77ba3780-3b10-4428-bfca-1ee797813b90
+:END:
+#+title: Cognitive Alignment in Human–AI Collaboration: Interpretability from Combinatorial Problems to Affective Vision
+#+project: PhD thesis
+#+created: [2024-06-05 Wed]
+#+last_modified: [2024-06-05 Wed 18:32]
+#+PUBLISH_DIR:phd_thesis
+#+setupfile: setupfile_apa7.org
+#+LATEX_HEADER: \authorsnames[1]{Dominik Pegler}
+#+LATEX_HEADER: \authorsaffiliations{{Department of Cognition, Emotion, and Methods in Psychology, Faculty of Psychology, University of Vienna}}
+#+LaTeX_HEADER: \shorttitle{Interpretability from Combinatorial Problems to Affective Vision}
+#+LaTeX_HEADER: \authornote{Corresponding author: Dominik Pegler. Email: \texttt{dominik.pegler@univie.ac.at}}
+
+# needed for inline values
+#+BIND: org-babel-inline-result-wrap "%s"
+#+BIND: org-export-babel-evaluate t
+#+PROPERTY: header-args:emacs-lisp :results value raw :exports results
+
+* Writing notes                                         :noexport:
+** about tenses (from chatgpt)
+In a psychological research paper, the general convention is to use past tense for the methods and results sections since these sections describe what was done and what was found in the study.
+
+The abstract and introduction sections are typically written in the present tense since they describe the current state of knowledge in the field and the purpose of the study.
+
+The discussion and conclusion sections can be written in either past or present tense, depending on the author's preference. Some authors prefer to use past tense to summarize the findings and discuss the implications of the study, while others may use present tense to emphasize the ongoing relevance of the research.
+
+Here is a breakdown of which tense to use for each section:
+
+- Abstract: Present tense
+- Introduction: Present tense
+- Methods: Past tense
+- Results: Past tense
+- Discussion and Conclusion: Either past or present tense
+
+Even though the methods and results sections are typically written in past tense in the main body of the paper, the abstract should generally be written in present tense, including the methods and results sections. This is because the abstract is a concise summary of the entire paper and is intended to provide readers with an overview of the study's purpose, methods, and results, as well as its implications and conclusions. Writing the abstract in present tense helps to convey that the study's findings and conclusions are current and relevant.
+
+* Acknowledgments
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+Thank you!
+
+#+LATEX: \newpage
+* Contents                                                           :ignore:
+#+TOC: headlines 2
+#+LATEX: \newpage
+* Abstract
+
+Across optimization and perception tasks, AI can generate outputs that are optimal and accurate, but difficult for humans to use. This dissertation advances a common principle --- cognitive alignment: AI should produce decision-ready outputs that are legible, verifiable, and grounded in task-relevant cues so humans can trust and use them. I study this in two complementary domains --- combinatorial decision support and affective vision --- and extract design rules for human–AI collaboration.
+
+Chapter 1 examines human-centered interpretability among equally optimal AI-generated solutions to a combinatorial design problem. In paired evaluations, people consistently preferred solutions that reflected simple construction heuristics, had simpler bin compositions, and were presented in an ordered, rule-like way. Selective speedups appeared when structural differences were larger, while gaze showed no robust side biases. These results yield feature-based criteria for enhancing the interpretability of machine solutions, making them easier for humans to justify and edit.
+
+Chapter 2 evaluates the interpretability of pretrained vision models predicting group-level fear from spider images for use in computerized exposure therapy. Models fine-tuned under strict out-of-sample evaluation generalized to new raters and images. Crucially, explanation analyses indicated predictions relied on spider-salient regions, confirming clinically grounded interpretability. Learning-curve and reliability analyses clarified data needs and realistic ceilings, and error patterns highlighted where generalization is hardest, informing trustworthy deployment.
+
+Together, the studies link psychological theory to AI practice and propose concise design principles: align outputs with familiar structure and salient cues; evaluate with strong generalization tests and validated explanations; and support deployment with transparent presentations, and uncertainty awareness. This shows how cognitively aligned, decision-ready outputs can improve interpretability, trust, and safe use across decision support and digital mental health.
+* Associated Output :noexport:
+** Preregistrations
+** Published Articles
+** Submitted Articles
+** Outreach                                                        :noexport:
+
+# other stuff
+
+* General Introduction Outline :noexport:
+
+# 10 pages, also introducing the concepts 
+
+** Motivation and scope
+  - Problem: AI outputs often hard to use; interpretability needed for adoption, safety, editability.
+  - Domains: decision support (packing), clinical affective prediction (exposure therapy).
+  - Why your two papers: complementary testbeds to study cognitive alignment in structured plans and visual predictions.
+  - Read/integrate: Lee & See (trust in automation), Dietvorst (algorithm aversion), HCAI/XAI overviews (Barredo-Arrieta), clinical exposure therapy (Craske; Choy), automated VRET (Miloff; Lindner).
+
+** Human-centered interpretability and cognitive alignment (definitions, why it matters)
+  - Define interpretability (functional, user-centered) vs model transparency.
+  - Cognitive alignment: outputs that match human heuristics and perceptual expectations.
+  - Measurement stance: behavior, RT, attention; explanations (local/global).
+  - Read/integrate: Doshi-Velez & Kim (definitions), Lipton (mythos), Miller (explanation psychology), Rudin (interpretable by design), Fox/Chakraborti (explainable planning).
+
+** Psychological foundations (heuristics, cognitive load, perceptual organization)
+  - Heuristics/familiarity: people prefer structures they can rationalize (greedy, simple rules).
+  - Cognitive load: simpler compositions, chunking reduce effort.
+  - Perceptual organization: order, symmetry, simplicity/likelihood principles.
+  - Read/integrate: Tversky & Kahneman; Gigerenzer; Sweller (cognitive load); Feldman (simplicity); van der Helm (simplicity/likelihood); algorithm aversion and trust literature.
+
+** Two domains and why these two studies (optimization/packing; affective vision/clinical)
+  - Optimization/packing: MSSP, multiple optimal solutions, human interpretability of plans; link to operations/healthcare scheduling.
+  - Affective vision: fear estimation from images for adaptive exposure; need for generalization and explainability.
+  - Read/integrate (packing): Johnson/Coffman/Kellerer (bin packing/knapsack), Caprara (MSSP), MacGregor/Murawski/Franco (human problem solving), Kyritsis (perceived optimality), explainable planning (Fox; Chakraborti).
+  - Read/integrate (vision): IAPS-based affective prediction (Kragel; Kim), reliability-aware affect/aesthetics (Conwell), image properties (Redies; Sadeghi), CLIP (Radford), ViT/DeiT/ConvNeXt/DINOv2 (Dosovitskiy; Touvron; Woo; Oquab), Grad-CAM (Selvaraju), saliency sanity checks (Adebayo).
+
+** Gaps and rationale
+  - Packing: lack of feature-based interpretability criteria for tied optima; little behavioral grounding.
+  - Vision: phobia-specific fear prediction under dual-level generalization; clinically grounded XAI validation often missing.
+  - Method gaps: upper-bound reasoning (coherence/ICC), uncertainty-aware evaluation, error analyses.
+  - Read/integrate: multiobjective optimization (Ehrgott), ICC and reliability (Revelle/psych), nested CV/variance (Hastie; Breiman bagging), uncertainty (Begoli; Gal dropout).
+
+** Research questions and contributions
+  - RQ1: Which structural properties (heuristic alignment, composition, visual order) drive interpretability of optimal solutions?
+  - RQ2: Can pretrained vision models predict group-level fear reliably, and are predictions grounded in spider-salient cues?
+  - RQ3: What bounds and error patterns shape performance and interpretability?
+  - Contributions: behavioral criteria for interpretability (HC/CC/VC); clinically interpretable fear prediction with XAI validation; rigorous evaluation (dual-level splits, nested CV, bootstrap); actionable design rules.
+
+** Thesis roadmap (chapter outline)
+  - Brief summaries of Chapters 1–2 and how the General Discussion synthesizes principles and implications.
+
+* General Introduction
+
+** Motivation and scope
+As artificial intelligence (AI) becomes indispensable in high-stakes domains like healthcare and resource management, a critical tension emerges: optimal or accurate outputs can remain inscrutable, hindering human trust and safe use [cite/p:@leeTrustAutomationDesigning2004;@dietvorstAlgorithmAversionPeople2015;@barredoarrietaExplainableArtificialIntelligence2020]. Adoption and safety depend not only on performance but on human-centered interpretability—making outputs understandable and actionable for users [cite/p:@rudinStopExplainingBlack2019;@millerExplanationArtificialIntelligence2019]. This thesis advances a common principle, cognitive alignment, to design and evaluate AI so its outputs are decision-ready: legible, verifiable, and grounded in task-relevant cues, enabling trust and effective human oversight. When interpretability is absent, users cannot verify outputs, detect and correct errors, or justify decisions, leading to algorithm aversion, brittle "automation surprises," and stalled adoption in safety-critical contexts [cite/p:@leeTrustAutomationDesigning2004;@dietvorstAlgorithmAversionPeople2015;@rudinStopExplainingBlack2019]. In such settings, performance without interpretability undermines accountability and safe human oversight.
+
+We examine this across two complementary domains: structured combinatorial decision support, where multiple distinct solutions can be equally optimal, and affective vision for computerized exposure therapy, where models must estimate how provocative a stimulus will be from image content [cite/p:@capraraMultipleSubsetSum2000;@kellererKnapsackProblems2004;@choyTreatmentSpecificPhobia2007;@craskeMaximizingExposureTherapy2014;@miloffAutomatedVirtualReality2019;@lindnerGamifiedAutomatedVirtual2020]. Though one is about plans and the other about visual predictions, both require outputs aligned with human expectations to be usable and safe.
+
+** Human-centered interpretability and cognitive alignment
+By interpretability we mean the user's ability to understand, verify, and work with AI outputs (plans, predictions, explanations), distinct from internal model transparency [cite/p:@doshi-velezRigorousScienceInterpretable2017;@liptonMythosModelInterpretability2017;@millerExplanationArtificialIntelligence2019]. We propose cognitive alignment as the guiding principle: organize and explain outputs in ways that fit how people expect information to be structured and what features they attend to. This supports trust and editability, reduces algorithm aversion, and aids error detection in practice [cite/p:@leeTrustAutomationDesigning2004;@dietvorstAlgorithmAversionPeople2015;@rudinStopExplainingBlack2019;@foxExplainablePlanning2017;@chakrabortiPlanExplanationsModel2017]. We assess interpretability behaviorally (preferences, reaction times), with attention measures where feasible (webcam gaze), and via explanations that validate what the model is using (local attributions like Grad-CAM; global feature visualizations) [cite/p:@swellerCognitiveLoadProblem1988;@papoutsakiWebgazerScalableWebcam2016;@selvarajuGradCAMVisualExplanations2020;@olahFeatureVisualization2017;@adebayoSanityChecksSaliency2020].
+
+** Psychological foundations: heuristics, cognitive load, perceptual organization
+People rely on fast heuristics and simple rules; outputs that align with these (e.g., greedy construction in packing) are easier to rationalize [cite/p:@tverskyJudgmentUncertaintyHeuristics1974;@gigerenzerHeuristicDecisionMaking2011]. Cognitive load falls when information is chunked, ordered, and easy to summarize [cite/p:@swellerCognitiveLoadProblem1988]. Perceptual organization favors simplicity, symmetry, and orderly sequences; sorted, rule-like presentations are processed more efficiently and feel more coherent [cite/p:@feldmanSimplicityPrinciplePerception2016;@vanderhelmSimplicityLikelihoodVisual2000]. These principles motivate our alignment criteria in both studies: structural order and simple compositions in optimization, and salient, clinically meaningful cues in vision.
+
+** Technical context: foundations in AI for planning and perception
+Combinatorial optimization has underpinned artificial intelligence (AI) and operations research since the mid-20th century. Linear and integer programming enabled large-scale resource allocation and scheduling [cite/p:@dantzigLinearProgramming1947;@nemhauserIntegerProgramming1999], while constraint programming broadened expressivity to rich combinatorial structures [cite/p:@dechterConstraintProcessing2003]. Modern Boolean satisfiability problem (SAT)/Constraint Programming-SAT (CP-SAT) solvers continue this line and power practical planning under discrete constraints [cite/p:@cpsatlp]. These methods remain workhorses in logistics and healthcare, often returning multiple distinct optimal plans for the same objective. The central challenge addressed here is not merely finding an optimum, but selecting and presenting a plan that humans can readily understand, verify, and edit.
+
+In parallel, deep neural networks transformed perception. Convolutional networks catalyzed modern computer vision [cite/p:@lecunDeepLearning2015;@krizhevskyImageNet2012], and transformers now serve as a general backbone across vision and language, enabling large-scale pretraining and transfer [cite/p:@vaswaniAttentionAllYou2017;@dosovitskiyImageWorth16x162021]. These models achieve strong accuracy but are often opaque; explainability and reliability-aware evaluation are therefore essential, especially in clinical and safety-critical use [cite/p:@selvarajuGradCAMVisualExplanations2020;@adebayoSanityChecksSaliency2020]. To address the challenges of human usability and trust, this thesis investigates cognitive alignment within these two distinct yet complementary technical landscapes.
+
+** Two domains and why these two studies
+Combinatorial decision support is foundational in operations, logistics, and healthcare allocation, where multiple optimal solutions often differ in how understandable they are to humans [cite/p:@johnsonWorstcasePerformanceBounds1974;@capraraMultipleSubsetSum2000;@kellererKnapsackProblems2004;@gunawanTrendsMultidisciplinaryScheduling2021;@marzoukNursePatientAssignment2021]. Behavioral work shows humans use simple strategies and visual cues; however, feature-based criteria for interpretability among tied optima remain scarce [cite/p:@macgregorHumanPerformanceTraveling2011;@murawskiHowHumansSolve2016;@francoGenericPropertiesComputational2021;@francoTaskindependentMetricsComputational2022;@kyritsisPerceivedOptimalityCompeting2022;@foxExplainablePlanning2017]. Our first study addresses this by quantifying how heuristic alignment, compositional simplicity, and visual order shape interpretability preferences among equally optimal solutions. In these allocation settings, a lack of interpretability has practical costs: equally optimal plans may be rejected, edits become slow or error-prone, and misallocations can go unnoticed, undermining operational safety and auditability in logistics and healthcare [cite/p:@foxExplainablePlanning2017;@marzoukNursePatientAssignment2021].
+
+Affective vision targets interpretable predictions from images in a clinically relevant context. Specific phobias are common, and scalable exposure requires stimulus selection guided by reliable, interpretable fear estimates from visual content [cite/p:@choyTreatmentSpecificPhobia2007;@craskeMaximizingExposureTherapy2014;@miloffAutomatedVirtualReality2019;@lindnerGamifiedAutomatedVirtual2020]. While computer vision has advanced general affect prediction, phobia-specific fear under strict generalization with clinically validated explanations is limited [cite/p:@kragelEmotionSchemasAre2019;@kimBuildingEmotionalMachines2018;@rediesGlobalImageProperties2020;@sadeghiDirectPerceptionAffective2024;@conwellPerceptualPrimacyFeeling2025]. Contemporary models—convolutional networks and transformers—enable transfer learning to this domain, but interpretability requires demonstrating reliance on task-relevant, spider-salient cues [cite/p:@selvarajuGradCAMVisualExplanations2020;@adebayoSanityChecksSaliency2020]. Our second study evaluates generalization to unseen raters and images and validates explanations against task-relevant annotations to support trustworthy use. In clinical exposure workflows, absent interpretability means clinicians cannot trust or calibrate fear estimates, risking mismatched stimulus intensity and reduced safety; predictions must be grounded in relevant cues to be credible and actionable [cite/p:@craskeMaximizingExposureTherapy2014;@selvarajuGradCAMVisualExplanations2020;@adebayoSanityChecksSaliency2020].
+
+** Gaps and rationale
+In packing, there is no quantitative, feature-based account of why tied optimal solutions differ in human interpretability, and limited behavioral grounding of solution evaluation versus generation [cite/p:@kyritsisPerceivedOptimalityCompeting2022;@foxExplainablePlanning2017]. In vision, few phobia-specific fear predictors are validated under dual-level generalization to unseen raters and images, and explanations are rarely checked against task-relevant annotations such as spider masks, risking misleading saliency [cite/p:@adebayoSanityChecksSaliency2020;@conwellPerceptualPrimacyFeeling2025]. Methodologically, both domains benefit from explicit upper bounds (coherence for preferences; intraclass correlation coefficient (ICC) for ratings), strong out-of-sample evaluation (nested cross-validation (CV)), uncertainty awareness, and error analyses to guide deployment [cite/p:@nakagawaGeneralSimpleMethod2013;@revellePsychProceduresPsychological2024;@hastie01statisticallearning;@begoliNeedUncertaintyQuantification2019;@galDropoutBayesianApproximation2016]. These gaps motivate our studies and the integrative framework.
+
+** Research questions and contributions
+We ask three questions. First, which structural properties—heuristic-related complexity (HC), compositional complexity (CC), and visual-order complexity (VC)—drive interpretability preferences among equally optimal solutions? Second, can pretrained vision models predict group-level fear reliably under strict generalization, and are predictions grounded in spider-salient cues? Third, what bounds and error patterns shape performance and interpretability, and how do they inform the design of cognitively aligned outputs for trustworthy deployment?
+
+The thesis contributes behavioral, feature-based criteria for interpretability (HC, CC, VC) that predict preferences and aid interpretability-aware optimization and presentation; clinically grounded, interpretable fear prediction with validated explanations (gradient-weighted class activation mapping (Grad-CAM), feature visualization (FV)) under dual-level generalization; and rigorous evaluation procedures—dual-level partitions (raters/images), nested cross-validation (CV), hierarchical bootstrap, coherence/intraclass correlation coefficient (ICC) ceilings, and error modeling—to characterize limits and inform practice.
+
+** Thesis roadmap
+Chapter 1 ("Unpacking Interpretability: Human-Centered Criteria for Optimal Combinatorial Solutions") quantifies how heuristic alignment, compositional simplicity, and visual order shape interpretability preferences, with reaction time and gaze as complementary process measures. Chapter 2 ("SpiderNets: Vision Models Predict Human Fear From Aversive Images") evaluates transfer-learned convolutional and transformer models under strict out-of-sample tests, validates explanations against spider regions, and characterizes learning curves, reliability bounds, and error patterns relevant for clinical deployment. The General Discussion synthesizes cross-domain principles of cognitive alignment, proposes design rules, reflects on methodological validity, and outlines limitations and future directions, including personalization, interpretability–optimality trade-offs, vision–language models, and video-based estimation.
+#+end_src
+
+*** 
+
+
+
+
+* Chapter 1: Interpretability of Combinatorial Packing Solutions
+
+# here, we will insert the JOptim paper
+
+* Chapter 2: Interpretability of Neural Networks Fine-Tuned to Predict Human Fear
+
+# here, we will insert the SpiderNets paper
+
+* General Discussion
+
+# 10 pages
+
+** Cross-domain synthesis: principles of cognitive alignment
+- Converging evidence: people prefer greedy-aligned, ordered, simple structures; vision models rely on spider regions; errors grow at extremes.
+- Alignment reduces cognitive load and supports trust/editability; performance bounded by reliability (coherence/ICC).
+- Read/integrate: link back to foundations (Sweller; Feldman; Miller); upper bounds (Revelle); ensemble variance reduction (Breiman; Hansen & Salamon).
+** Practical implications and design rules
+- Interpretability-aware optimization: tie-breakers or soft penalties on HC/CC; present ordered representations; expose the build rationale.
+- Clinical deployment: XAI overlays (Grad-CAM), FV checks, uncertainty-aware abstain; personalize via few-shot ratings.
+- Data curation: balance extremes; diversify stimuli (textures, contexts); consider VLMs to disambiguate artificial renderings.
+- Read/integrate: Ehrgott (multiobjective), CLIP (Radford), uncertainty (Begoli; Gal), explainable planning practices (Fox; Chakraborti).
+** Methodological reflections and validity
+- Dual-level participant/image partitioning; nested CV; hierarchical bootstrap; ensembling across splits.
+- Explainability validation with segmentation masks; error modeling with cluster-robust SEs.
+- Limits of webcam gaze; FV scope differences across architectures.
+- Read/integrate: Hastie (CV), Revelle (ICC), Cameron & Miller (cluster-robust SE), Adebayo (saliency checks).
+** Limitations
+- Domain-specificity (spiders; small MSSP instances); group vs individual predictions; distribution tails; optimistic cross-split ensembling; FV limited to ResNet.
+- Read/integrate: personalization challenges; generalization limits; sample/measurement constraints.
+** Future directions
+- Personalization and clinician-in-the-loop decision rules; active learning for extremes; lab-grade attention measures.
+- Broaden domains (other phobias; larger packing/knapsack); interpretability–optimality trade-offs; vision–language models; video (VideoMAE).
+- Read/integrate: Tong (VideoMAE), CLIP (Radford), multiobjective optimization (Ehrgott), active learning/data selection literature.
+** Conclusion
+- Restate thesis: interpretable AI emerges when outputs align with human heuristics and perceptual salience.
+- Broader impact: design principles for Human–AI collaboration in decision support and clinical tools; open science and safety-aware deployment.
+* References
+#+LaTeX: \printbibliography[heading=none]
+
+#+latex: \clearpage
+* Appendix                                                           :ignore:
+#+LATEX: \appendix
+** Abstracts                                                        :ignore:
+<<sec:abstracts>>
+#+latex: \FloatBarrier
+*** Deutsche Zusammenfassung
+
+\newpage
+** Code Examples
+<<sec:code-examples>>
+** List of Figures and Tables
+\listoffigures
+\listoftables
+
+
+
+
+* Load Metrics :noexport:
+#+MACRO: n   src_elisp{(my/fmt-int (apply 'my/json-get "$1" (split-string "$2" "\\.")))}
+#+MACRO: f   src_elisp{(my/fmt     (apply 'my/json-get "$1" (split-string "$2" "\\.")) "$3")}
+#+MACRO: p src_elisp{(my/fmt-p (apply 'my/json-get "$1" (split-string "$2" "\\.")))}
+#+MACRO: pct src_elisp{(my/fmt-pct (apply 'my/json-get "$1" (split-string "$2" "\\.")) "$3")}
+#+MACRO: r   src_elisp{(my/fmt-range (apply 'my/json-get "$1" (split-string "$2" "\\.")) (apply 'my/json-get "$1" (split-string "$3" "\\.")) "$4")}
+#+MACRO: s   src_elisp{(my/fmt-str  (apply 'my/json-get "$1" (split-string "$2" "\\.")))}
+#+MACRO: rpct src_elisp{(my/fmt-range-pct (apply 'my/json-get "$1" (split-string "$2" "\\.")) (apply 'my/json-get "$1" (split-string "$3" "\\.")) "$4")}
+
+
+#+name: json-setup
+#+begin_src emacs-lisp :results none
+(require 'json)
+
+;; Base dir and short aliases → relative JSON paths
+(defvar-local my/json-base (expand-file-name "~/Dropbox/data_export/spidernets-analysis/pub"))
+(setq-local my/json-paths
+            '(("dp"   . "data_preprocessing/data_preprocessing.json")
+              ("dist" . "data_distribution/data_distribution.json")
+              ("icc"  . "upper_bound_estimation/upper_bound_estimation.json")
+              ("perf" . "predictive_performance/predictive_performance.json")
+              ("lc"   . "learning_curves/learning_curves.json")
+              ("gc" . "gradcam/gradcam.json")
+              ("fv"   . "feature_visualization/feature_visualization.json")
+              ("err"  . "error_analysis/error_analysis.json")))
+
+;; Cache: buffer-local var and safe init/clear
+(defvar-local my/json-cache nil
+  "Hash-table cache for parsed JSON (buffer-local).")
+
+(defun my/json--ensure-cache ()
+  "Initialize my/json-cache if needed."
+  (unless (hash-table-p my/json-cache)
+    (setq my/json-cache (make-hash-table :test 'equal))))
+
+(defun my/json-clear-cache ()
+  "Clear the JSON cache safely (used by the export hook)."
+  (my/json--ensure-cache)
+  (clrhash my/json-cache))
+
+;; Path resolution
+(defun my/json--path (id)
+  "Map short ID or path string to full file path."
+  (let* ((id (format "%s" id))
+         (rel (or (cdr (assoc id my/json-paths)) id)))
+    (expand-file-name rel my/json-base)))
+
+;; Robust parser across Emacs versions (uses json-read)
+(defun my/json-parse-file (path)
+  "Parse JSON file PATH into a hash-table/list structure."
+  (with-temp-buffer
+    (insert-file-contents path)
+    (let ((json-object-type 'hash-table)
+          (json-array-type 'list)
+          (json-key-type 'string))
+      (json-read))))
+
+;; Loader
+(defun my/json-load (id)
+  "Load and cache parsed JSON; reloads per export."
+  (my/json--ensure-cache)
+  (let* ((path (my/json--path id))
+         (cached (gethash path my/json-cache)))
+    (or cached
+        (let ((data (my/json-parse-file path)))
+          (puthash path data my/json-cache)
+          data))))
+
+;; Getter
+(defun my/json-get (id &rest keys)
+  "Get nested value from JSON via alias ID and KEYS (strings/symbols/ints).
+Errors if file or key is missing."
+  (let* ((obj (my/json-load id))
+         (val obj))
+    (dolist (k keys)
+      (setq k
+            (cond
+             ((stringp k) k)
+             ((symbolp k)
+              (let ((s (symbol-name k)))
+                (if (and (> (length s) 0) (eq (aref s 0) ?:))
+                    (substring s 1) s)))
+             ((integerp k) k)
+             (t (format "%s" k))))
+      (cond
+       ((hash-table-p val)
+        (setq val (gethash k val)))
+       ((listp val)
+        (setq val
+              (cond
+               ((integerp k) (nth k val))
+               ((and (stringp k) (string-match-p "^[0-9]+$" k))
+                (nth (string-to-number k) val))
+               (t (error "List index must be int (got %S)" k)))))
+       (t (error "Cannot descend into %S with key %S" val k))))
+    (unless val (error "Missing JSON key %S in %s" keys (my/json--path id)))
+    val))
+
+;; Formatting helpers (abort on invalids)
+(defun my/fmt (x &optional spec)
+  (let ((spec (or spec "%.2f")))
+    (cond
+     ((null x) (error "Missing value"))
+     ;; NaN check: a NaN float is not equal to itself
+     ((and (floatp x) (not (eq x x))) (error "Invalid float (NaN)"))
+     ((numberp x) (format spec (float x)))
+     (t (error "Non-numeric value: %S" x)))))
+
+;; has no 1000 separators
+;; (defun my/fmt-int (x)
+;;  (unless (numberp x) (error "Missing/invalid int"))
+;;  (format "%d" (truncate x)))
+
+(defun my/fmt-int (x &optional sep)
+  (unless (numberp x) (error "Missing/invalid int"))
+  (let* ((s   (format "%d" (truncate x)))
+         (neg (string-prefix-p "-" s))
+         (d   (if neg (substring s 1) s))
+         (sep (or sep ","))
+         (n   (length d))
+         (out "")
+         (i   0))
+    (while (< i n)
+      (setq out (concat out (string (aref d i))))
+      (let ((remain (- n i 1)))
+        (when (and (> remain 0) (= (mod remain 3) 0))
+          (setq out (concat out sep))))
+      (setq i (1+ i)))
+    (if neg (concat "-" out) out)))
+
+(defun my/fmt-pct (x &optional spec)
+  (unless (numberp x) (error "Missing/invalid pct"))
+  (format (or spec "%.1f%%") (* 100.0 x)))
+
+(defun my/fmt-range (lo hi &optional spec)
+  (format "%s–%s"
+          (my/fmt lo (or spec "%.2f"))
+          (my/fmt hi (or spec "%.2f"))))
+
+(defun my/fmt-range-pct (lo hi &optional spec)
+  "Format LO–HI as a percent range with multiplication by 100."
+  (format "%s–%s"
+          (my/fmt-pct lo (or spec "%.1f%%"))
+          (my/fmt-pct hi (or spec "%.1f%%"))))
+
+(defun my/fmt-str (s)
+  (unless (and (stringp s) (> (length s) 0))
+    (error "Missing/empty string"))
+  s)
+
+(defun my/fmt-p (p)
+  "Format p-values with < 0.001 rule."
+  (cond
+    ((or (null p) (not (numberp p))) (error "Invalid p"))
+    ((< p 0.001) "< 0.001")
+    (t (format "%.3f" p))))
+
+
+#+end_src
+
+* LocVar (ALWAYS AT THE END!) :noexport:
+# Local Variables:
+# mode: org
+# eval: (add-hook 'org-export-before-processing-hook (lambda (_backend) (let ((pos (org-babel-find-named-block "json-setup"))) (when pos (goto-char pos) (org-babel-execute-src-block))) (when (fboundp 'my/json-clear-cache) (my/json-clear-cache))) nil t)
+# End:

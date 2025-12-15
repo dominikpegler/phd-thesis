@@ -1,0 +1,91 @@
+#+STARTUP: entitiespretty overview indent align
+#+OPTIONS: toc:nil h:6 author:nil email:nil date:nil
+# title:nil ':t ^:{} tags:nil num:nil todo:nil broken-links:mark
+#+LaTeX_CLASS: apa7
+#+LaTeX_CLASS_OPTIONS: [man]
+# added 23.10.2025 (during creation of setupfile_iee.org)
+#+LATEX_HEADER: \newcommand{\APABUILD}{}
+# correct figure caption to be ABOVE figure
+#+LATEX_HEADER: %% --- let floatrow run before endfloat -----------------
+#+LATEX_HEADER: \makeatletter
+#+LATEX_HEADER: \newcommand\efloatredefs{}% store endfloat hooks
+#+LATEX_HEADER: \newcommand\efloat@AtBeginDocument{\g@addto@macro\efloatredefs}
+#+LATEX_HEADER: \makeatother
+#+LATEX_HEADER: \usepackage{floatrow}
+#+LATEX_HEADER: \floatsetup[figure]{style=plaintop}   % caption above
+#+LATEX_HEADER: %% do the postponed endfloat patches
+#+LATEX_HEADER: \floatsetup[table]{capposition=top}   % keep caption above tables
+#+LATEX_HEADER: \AtBeginDocument{\efloatredefs}
+# +LANGUAGE: en
+# this is for allowing citations with the newer org-cite format
+#+cite_export: biblatex apa
+#
+#+LATEX_HEADER:\usepackage[american]{babel}
+#+LATEX_HEADER:\usepackage{csquotes}
+#+LATEX_HEADER:\usepackage[style=apa,sortcites=true,sorting=nyt,backend=biber,annotation=false]{biblatex}
+#+LATEX_HEADER:\DeclareLanguageMapping{american}{american-apa}
+#+LATEX_HEADER:\addbibresource{~/Dropbox/org/ref/ref.bib}
+# minted package for code blocks  (not supported on arxiv)
+# #+LaTeX_HEADER: \usepackage{minted}\setminted{baselinestretch=1.0,linenos,breaklines,fontsize=\footnotesize}
+# #+LaTeX_HEADER:\renewcommand{\theFancyVerbLine}{\footnotesize\arabic{FancyVerbLine}}
+# GANTT CHARTS
+#+LATEX_HEADER: \usepackage{pgfgantt}
+# Needed to make floatbarriers work
+#+LATEX_HEADER: \usepackage{placeins}
+# Needed for placement of figures, tables, ...
+#+LATEX_HEADER: \usepackage{float}
+# Listings
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{upquote}
+# +LATEX_HEADER: \usepackage{xcolor}
+# +LaTeX_HEADER: \definecolor{myvarcolor}{rgb}{0.6,0,0.6}
+#+LaTeX_HEADER: \lstset{
+#+LaTeX_HEADER:   basicstyle=\ttfamily\scriptsize,
+#+LaTeX_HEADER:   identifierstyle=\ttfamily,
+#+LaTeX_HEADER:   breaklines=true, prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+#+LaTeX_HEADER:   keywords={},
+#+LaTeX_HEADER:   upquote=true,
+#+LaTeX_HEADER:   columns=fixed,
+#+LaTeX_HEADER:   rulecolor=,
+#+LaTeX_HEADER:   aboveskip=1.0\baselineskip,
+# +LaTeX_HEADER:   postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
+#+LaTeX_HEADER:   numbers=left,
+#+LaTeX_HEADER:   numberstyle=\scriptsize,
+#+LaTeX_HEADER:   frame=single,
+#+LaTeX_HEADER:   extendedchars=true,
+# +LaTeX_HEADER:   backgroundcolor=\color{gray!5},
+# +LaTeX_HEADER:   keywordstyle=\color{blue},
+# +LaTeX_HEADER:   commentstyle=\color{green},
+# +LaTeX_HEADER:   stringstyle=\color{red},
+# +LaTeX_HEADER:   rulecolor=\color{black},
+# +LaTeX_HEADER:   moredelim=[is][\color{myvarcolor}]{<@}{@>}
+#+LaTeX_HEADER: }
+# to avoid elements of half-empty pages being vertically evenly distributed
+#+LATEX_HEADER:\raggedbottom
+# patch to correct horizontal space of APA's level-5 headings
+# to be same as in level-4 headings
+# insert CODE here
+#+LATEX_HEADER: \let\oldsubparagraph\subparagraph
+#+LATEX_HEADER: \renewcommand{\subparagraph}[1]{\paragraph{\itshape #1}}
+# for tables
+#+latex_header: \usepackage{booktabs}
+#+latex_header: \usepackage{threeparttable}
+#+LATEX_HEADER: \usepackage{tabularx}
+# for tables (longtable with notes)
+#+latex_header: \usepackage{threeparttablex}
+# decimal alignment (optional)
+#+latex_header: \usepackage{siunitx}
+# for splitting long header in tables
+#+latex_header: \usepackage{makecell}   % in the preamble
+# to allow multiindex for rows (see pandas multiindex)
+#+latex_header: \usepackage{multirow}
+# APA7: Figures and Tables horizontally left-aligned
+#+LATEX_HEADER: \usepackage{etoolbox}                % helper macros
+#+LATEX_HEADER: \AtBeginEnvironment{figure}{\let\centering\raggedright}
+#+LATEX_HEADER: \AtBeginEnvironment{table}{\let\centering\raggedright}
+#+LATEX_HEADER: \AtBeginEnvironment{figure*}{\let\centering\raggedright}
+#+LATEX_HEADER: \AtBeginEnvironment{table*}{\let\centering\raggedright}
+# To allow landscape for long tables
+#+LATEX_HEADER:\usepackage{pdflscape}
+# moved here from the article file
+#+LaTeX_HEADER: \usepackage{caption}
