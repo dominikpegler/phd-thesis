@@ -1,21 +1,20 @@
 :PROPERTIES:
 :ID:       77ba3780-3b10-4428-bfca-1ee797813b90
 :END:
-#+title: Cognitive Alignment in Human–AI Collaboration: Interpretability from Combinatorial Problems to Affective Vision
+#+title: Cognitive Alignment in Human–AI Interaction: Interpretability from Combinatorial Problems to Affective Vision
 #+project: PhD thesis
 #+created: [2024-06-05 Wed]
 #+last_modified: [2024-06-05 Wed 18:32]
 #+PUBLISH_DIR:phd_thesis
-#+setupfile: setupfile_apa7.org
-#+LATEX_HEADER: \authorsnames[1]{Dominik Pegler}
-#+LATEX_HEADER: \authorsaffiliations{{Department of Cognition, Emotion, and Methods in Psychology, Faculty of Psychology, University of Vienna}}
-#+LaTeX_HEADER: \shorttitle{Interpretability from Combinatorial Problems to Affective Vision}
-#+LaTeX_HEADER: \authornote{Corresponding author: Dominik Pegler. Email: \texttt{dominik.pegler@univie.ac.at}}
+#+setupfile: setupfile_book.org
+#+AUTHOR: Dominik Pegler
+#+DATE: December 2025
 
 # needed for inline values
 #+BIND: org-babel-inline-result-wrap "%s"
 #+BIND: org-export-babel-evaluate t
 #+PROPERTY: header-args:emacs-lisp :results value raw :exports results
+
 
 * Writing notes                                         :noexport:
 ** about tenses (from chatgpt)
@@ -40,21 +39,32 @@ Even though the methods and results sections are typically written in past tense
   :UNNUMBERED: t
   :END:
 
-Thank you!
+# Thank you to my advisors, colleagues, friends, and family who supported this work.
 
-#+LATEX: \newpage
-* Contents                                                           :ignore:
-#+TOC: headlines 2
-#+LATEX: \newpage
+I would like to thank everyone who helped me bring this project to a successful conclusion over the past three years: Alex, Annika, Cindy, Daniel, David, Filip, Frank, Kathrin, and Mengfan. Thank you for being there. Thank you, Lilla.
+
+# #+LATEX:{\vspace*{\fill}\begin{center}{\fontsize{10cm}{1cm}\selectfont \bfseries{Ty!}}\end{center}\vspace*{\fill}}
+ 
+
 * Abstract
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
 
 Across optimization and perception tasks, AI can generate outputs that are optimal and accurate, but difficult for humans to use. This dissertation advances a common principle --- cognitive alignment: AI should produce decision-ready outputs that are legible, verifiable, and grounded in task-relevant cues so humans can trust and use them. I study this in two complementary domains --- combinatorial decision support and affective vision --- and extract design rules for human–AI collaboration.
 
-Chapter 1 examines human-centered interpretability among equally optimal AI-generated solutions to a combinatorial design problem. In paired evaluations, people consistently preferred solutions that reflected simple construction heuristics, had simpler bin compositions, and were presented in an ordered, rule-like way. Selective speedups appeared when structural differences were larger, while gaze showed no robust side biases. These results yield feature-based criteria for enhancing the interpretability of machine solutions, making them easier for humans to justify and edit.
+Paper 1 examines human-centered interpretability among equally optimal AI-generated solutions to a combinatorial design problem. In a forced-choice paradigm for interpretability evaluation, people consistently preferred solutions that reflected simple construction heuristics, had simpler bin compositions, and were presented in an ordered, rule-like way. Selective speedups appeared when structural differences were larger, while gaze showed no significant biases. These results revealed feature-based criteria for enhancing the interpretability of machine solutions, making them easier for humans to justify and edit.
 
-Chapter 2 evaluates the interpretability of pretrained vision models predicting group-level fear from spider images for use in computerized exposure therapy. Models fine-tuned under strict out-of-sample evaluation generalized to new raters and images. Crucially, explanation analyses indicated predictions relied on spider-salient regions, confirming clinically grounded interpretability. Learning-curve and reliability analyses clarified data needs and realistic ceilings, and error patterns highlighted where generalization is hardest, informing trustworthy deployment.
+Paper 2 evaluates the interpretability of pretrained vision models predicting group-level fear from spider images for use in computerized exposure therapy. Models fine-tuned under strict out-of-sample evaluation generalized to new raters and images. Crucially, explanation analyses indicated predictions relied on spider-salient regions, confirming clinically grounded interpretability. Learning-curve and reliability analyses clarified data needs and realistic ceilings, and error patterns highlighted where generalization is hardest, informing trustworthy deployment.
 
 Together, the studies link psychological theory to AI practice and propose concise design principles: align outputs with familiar structure and salient cues; evaluate with strong generalization tests and validated explanations; and support deployment with transparent presentations, and uncertainty awareness. This shows how cognitively aligned, decision-ready outputs can improve interpretability, trust, and safe use across decision support and digital mental health.
+
+
+
+* Contents                                                           :ignore:
+#+TOC: headlines 2
+
 * Associated Output :noexport:
 ** Preregistrations
 ** Published Articles
@@ -139,18 +149,12 @@ The thesis contributes behavioral, feature-based criteria for interpretability (
 
 ** Thesis roadmap
 Chapter 1 ("Unpacking Interpretability: Human-Centered Criteria for Optimal Combinatorial Solutions") quantifies how heuristic alignment, compositional simplicity, and visual order shape interpretability preferences, with reaction time and gaze as complementary process measures. Chapter 2 ("SpiderNets: Vision Models Predict Human Fear From Aversive Images") evaluates transfer-learned convolutional and transformer models under strict out-of-sample tests, validates explanations against spider regions, and characterizes learning curves, reliability bounds, and error patterns relevant for clinical deployment. The General Discussion synthesizes cross-domain principles of cognitive alignment, proposes design rules, reflects on methodological validity, and outlines limitations and future directions, including personalization, interpretability–optimality trade-offs, vision–language models, and video-based estimation.
-#+end_src
 
-*** 
-
-
-
-
-* Chapter 1: Interpretability of Combinatorial Packing Solutions
+* Interpretability of Combinatorial Packing Solutions
 
 # here, we will insert the JOptim paper
 
-* Chapter 2: Interpretability of Neural Networks Fine-Tuned to Predict Human Fear
+* Interpretability of Neural Networks Fine-Tuned to Predict Human Fear
 
 # here, we will insert the SpiderNets paper
 
@@ -183,6 +187,10 @@ Chapter 1 ("Unpacking Interpretability: Human-Centered Criteria for Optimal Comb
 - Restate thesis: interpretable AI emerges when outputs align with human heuristics and perceptual salience.
 - Broader impact: design principles for Human–AI collaboration in decision support and clinical tools; open science and safety-aware deployment.
 * References
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
 #+LaTeX: \printbibliography[heading=none]
 
 #+latex: \clearpage
