@@ -1,5 +1,5 @@
 #+STARTUP: entitiespretty overview indent align
-#+OPTIONS: toc:nil h:6 author:nil email:nil date:nil
+#+OPTIONS: toc:nil h:6 author:nil email:nil date:nil ':t
 # title:nil ':t ^:{} tags:nil num:nil todo:nil broken-links:mark
 #+LaTeX_CLASS: apa7
 #+LaTeX_CLASS_OPTIONS: [man]
