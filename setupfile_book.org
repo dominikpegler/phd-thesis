@@ -1,0 +1,72 @@
+#+LATEX_CLASS: book
+#+LATEX_CLASS_OPTIONS: [12pt,letterpaper,twoside,openany]
+
+# Citation export configuration
+#+cite_export: biblatex apa
+
+# Configure org-mode to map * to \chapter
+#+LATEX_HEADER: \makeatletter
+#+LATEX_HEADER: \let\l@chapter\l@section
+#+LATEX_HEADER: \let\l@section\l@subsection  
+#+LATEX_HEADER: \let\l@subsection\l@subsubsection
+#+LATEX_HEADER: \makeatother
+
+# Serif font (standard LaTeX)
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+# +LATEX_HEADER: \usepackage{lmodern}
+
+# +LATEX_HEADER: \usepackage{newtxtext}
+# #+LATEX_HEADER: \usepackage{newtxmath}
+
+#+LATEX_HEADER: \usepackage{fourier}
+
+# Book margins
+#+LATEX_HEADER: \usepackage[inner=3cm,outer=2.5cm,top=2.5cm,bottom=3cm]{geometry}
+
+# Page numbers at bottom center
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancy}
+#+LATEX_HEADER: \fancyhf{}
+#+LATEX_HEADER: \fancyfoot[C]{\thepage}
+#+LATEX_HEADER: \renewcommand{\headrulewidth}{0pt}
+#+LATEX_HEADER: \fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+# Chapter formatting - big number and title on own page
+#+LATEX_HEADER: \usepackage{titlesec}
+#+LATEX_HEADER: \titleformat{\chapter}[display]{\normalfont\bfseries\centering}{\fontsize{80}{96}\selectfont\thechapter}{20pt}{\Huge}
+#+LATEX_HEADER: \titlespacing*{\chapter}{0pt}{0pt}{30pt}
+#+LATEX_HEADER: \newcommand{\chapterbreak}{\clearpage}
+
+#+LATEX_HEADER: \titleformat{\paragraph}[runin]{\normalfont\normalsize\bfseries}{}{0pt}{}[.]
+#+LATEX_HEADER: \titlespacing*{\paragraph}{0pt}{1.5ex}{1em}
+#+LATEX_HEADER: \titleformat{\subparagraph}[runin]{\normalfont\normalsize\itshape}{}{0pt}{}[.]
+#+LATEX_HEADER: \titlespacing*{\subparagraph}{0pt}{1.5ex}{1em}
+
+# APA7 citations
+#+LATEX_HEADER: \usepackage[american]{babel}
+#+LATEX_HEADER: \usepackage{csquotes}
+#+LATEX_HEADER: \usepackage[style=apa,sortcites=true,sorting=nyt,backend=biber]{biblatex}
+#+LATEX_HEADER: \DeclareLanguageMapping{american}{american-apa}
+#+LATEX_HEADER: \addbibresource{~/Dropbox/org/ref/ref.bib}
+
+# Options
+#+OPTIONS: toc:nil num:3 H:6 ':t
+
+# Better approach: tell org-export the correct mapping
+#+BIND: org-latex-classes (("book" "\\documentclass{book}" ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}") ("\\subsection{%s}" . "\\subsection*{%s}") ("\\subsubsection{%s}" . "\\subsubsection*{%s}") ("\\paragraph{%s}" . "\\paragraph*{%s}") ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+# for first letter dropcap
+#+LATEX_HEADER: \usepackage{lettrine}
+
+# for tables
+#+latex_header: \usepackage{booktabs}
+#+latex_header: \usepackage{threeparttable}
+#+LATEX_HEADER: \usepackage{tabularx}
+# for tables (longtable with notes)
+#+latex_header: \usepackage{threeparttablex}
+# decimal alignment (optional)
+#+latex_header: \usepackage{siunitx}
+# for splitting long header in tables
+#+latex_header: \usepackage{makecell}   % in the preamble
+# to allow multiindex for rows (see pandas multiindex)
+#+latex_header: \usepackage{multirow}
