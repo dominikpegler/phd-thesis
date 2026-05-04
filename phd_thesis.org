@@ -1,7 +1,7 @@
 :PROPERTIES:
 :ID:       77ba3780-3b10-4428-bfca-1ee797813b90
 :END:
-#+title: Human-Centered Interpretability Across AI Domains: From Combinatorial Decision Support to Affective Vision
+#+title: Human-Centered Interpretability in Combinatorial Decision Support and Affective Vision
 #+project: PhD thesis
 #+created: [2024-06-05 Wed]
 #+last_modified: [2024-06-05 Wed 18:32]
@@ -50,9 +50,9 @@ I would like to thank everyone who helped me bring this project to a successful 
   :PROPERTIES:
   :UNNUMBERED: t
   :END:
-
-#+LATEX: \lettrine[lines=3, lhang=0.1, nindent=0.5em]{A}{cross optimization and perception tasks, AI can generate outputs that are op-}
-timal and accurate, but difficult for humans to use. This dissertation advances a common principle: cognitive alignment. AI should produce decision-ready outputs that are legible, verifiable, and grounded in task-relevant cues so humans can trust and use them. I study this in two complementary domains, combinatorial decision support and affective vision, and extract design rules for human–AI collaboration.
+ 
+#+LATEX: \lettrine[lines=3, lhang=0.1, nindent=0.5em]{A}{cross optimization and perception tasks, AI can generate outputs that are }
+optimal and accurate, but difficult for humans to use. This dissertation advances a common principle: cognitive alignment. AI should produce decision-ready outputs that are legible, verifiable, and grounded in task-relevant cues so humans can trust and use them. I study this in two complementary domains, combinatorial decision support and affective vision, and extract design rules for human–AI collaboration.
 
 Paper 1 examines human-centered interpretability among equally optimal AI-generated solutions to a combinatorial design problem. In a forced-choice paradigm for interpretability evaluation, people consistently preferred solutions that reflected simple construction heuristics, had simpler bin compositions, and were presented in an ordered, rule-like way. Selective speedups appeared when structural differences were larger, while gaze showed no significant biases. These results revealed feature-based criteria for enhancing the interpretability of machine solutions, making them easier for humans to justify and edit.
 
@@ -63,7 +63,7 @@ Together, the studies link psychological theory to AI practice and propose conci
 
 
 * Contents                                                           :ignore:
-#+TOC: headlines 2
+#+TOC: headlines 1
 
 * Associated Output :noexport:
 ** Preregistrations
@@ -80,24 +80,31 @@ Together, the studies link psychological theory to AI practice and propose conci
 # a total of about 10 pages
 
 # first sentences that introduce the thesis very broadly and gives a brief outlook what follows in the introductions
-#+LATEX: \lettrine[lines=3, lhang=0.1, nindent=0.5em]{A}{s artificial intelligence (AI) becomes indispensable in high-stakes domains}
-...
+#+LATEX: \lettrine[lines=3, lhang=0.1, nindent=0.5em]{A}{s artificial intelligence (AI) systems move from research labs into hospi-}
+tals, factories, courts, and everyday devices, the central question changes. It is no longer simply whether these systems can optimize an objective function or outperform a benchmark, but how their outputs enter human decision processes: who has to read them, question them, override them, and answer for them. Algorithms now tackle problems that lie well beyond the reach of unaided reasoning. They construct timetables, allocate scarce resources, and assign meaning to complex visual input. Yet wherever humans remain responsible for, someone still has to say "yes, this plan is acceptable," "no, something is wrong here," or "I am willing to prescribe this treatment to my patient." At that point, it matters not only /what/ the system outputs, but /whether people can make sense of it/ -- whether they can see where it comes from, judge when to trust it, and detect when it goes wrong.
 
+Human–computer interaction (HCI) has long insisted that systems should be shaped around human perception, memory, and judgment, rather than treating people as noisy peripherals attached to flawless algorithms. When AI systems violate this expectation, two characteristic problems arise. One is /algorithm aversion/: good solutions are ignored because they appear opaque or arbitrary, and people retreat to familiar but suboptimal methods. The other is /overreliance/: opaque outputs are accepted by default, errors go unnoticed, and their consequences remain invisible until they surface in practice. Avoiding both extremes requires interpretability. For an AI system, being useful is no longer just about being right; it is about producing outputs whose structure a person can grasp quickly, test against their own understanding of the task, and, if necessary, explain to others.  The next section develops this argument in more detail and explains why interpretability is central to safe, effective human–AI interaction.
 
 # /Logic/: The introduction should move from broad problem → key concept (interpretability) → terminological clarity → psychological foundations → technical context → the two specific domains → what's missing → what this thesis does → roadmap. Each subsection does one job and hands off cleanly to the next. The terminological discussion comes early because everything after it depends on the reader understanding what you mean by interpretability and how it relates to explainability.
 
 ** Why interpretability matters for human–AI interaction
-  # - AI is increasingly used in high-stakes domains; outputs are often optimal or accurate but hard for humans to use. Adoption, safety, and appropriate reliance depend on whether humans can understand, verify, and act on outputs. Without interpretability: algorithm aversion, automation surprises, stalled adoption, inability to detect errors. Frame the thesis scope: two complementary domains (combinatorial decision support, affective vision for clinical use).
+ 
+When AI-generated outputs are hard for humans to understand, two things tend to go wrong. The first is avoidance: people reject or ignore systems that could help them, because they cannot tell why a particular recommendation makes sense and retreat to familiar but often worse strategies instead [cite/p:@dietvorstAlgorithmAversionPeople2015; @kahnemanThinkingFastSlow2011; @gigerenzerHeuristicDecisionMaking2011]. The second is blind acceptance: outputs that look authoritative but remain opaque are taken at face value, errors slip through, and warning signs are overlooked [cite/p:@leeTrustAutomationDesigning2004; @bussoneRoleExplanationsTrust2015; @zerilliHowTransparencyModulates2022]. In either case the user cannot see enough of what the system is doing to know when to follow it and when to push back.
+
+Interpretability changes this because it changes what people can do with an output. When a recommendation has a structure that can be put into a few words, checked against one's own reasoning, and mentally played forward under "what if" changes, processing becomes faster and mistakes are easier to catch [cite/p:@swellerCognitiveLoadProblem1988; @feldmanSimplicityPrinciplePerception2016; @vanderhelmSimplicityLikelihoodVisual2000]. There is also a social side. In most real settings, decisions do not end with one person clicking "accept." They have to be explained to a colleague, a patient, a supervisor. Outputs that lend themselves to short, pointed justifications are more likely to be adopted and more likely to be adopted well [cite/p:@millerExplanationArtificialIntelligence2019].
+
+
+Both domains in this thesis make these stakes concrete. When a solver hands a practitioner a plan that looks arbitrary or messy, the plan gets reworked or shelved, no matter how good its score is. When a vision model says a spider image should provoke a certain level of fear, a clinician needs to see what the model is reacting to before putting that image in front of a patient. In one case, interpretability has to come from the structure of the output itself; in the other, from explanations whose correctness can be checked. The next section clarifies what this thesis means by interpretability and how the term relates to explainability.
 
 
 ** What is interpretability? Definitions and the relationship to explainability
-  # - The field uses "interpretability" and "explainability" inconsistently. Present the main positions: Lipton (transparency vs. post-hoc), Rudin (inherently interpretable vs. post-hoc explanations of black boxes), Doshi-Velez and Kim (functional, user-centered), Miller (grounded in cognitive/social science of explanation), Barredo Arrieta et al. and Murdoch et al. (overlapping usage). Introduce the faithfulness vs. plausibility distinction (Jacovi and Goldberg). Take a clear position: interpretability is a functional property of the human–output interaction — can the user understand, verify, and work with the output? Explainability methods (Grad-CAM, feature visualization) are tools that can serve interpretability but require validation. Preview how this applies to the two papers: Paper 1 achieves interpretability through output structure; Paper 2 achieves it through validated post-hoc explanations.
+  # - The field uses "interpretability" and "explainability" inconsistently. Present the main positions: Lipton (transparency vs. post-hoc), Rudin (inherently interpretable vs. post-hoc explanations of black boxes), Doshi-Velez and Kim (functional, user-centered), Miller (grounded in cognitive/social science of explanation), Barredo Arrieta et al. and Murdoch et al. (overlapping usage). Introduce the faithfulness vs. plausibility distinction (Jacovi and Goldberg). Take a clear position: interpretability is a functional property of the human–output interaction -- can the user understand, verify, and work with the output? Explainability methods (Grad-CAM, feature visualization) are tools that can serve interpretability but require validation. Preview how this applies to the two papers: Paper 1 achieves interpretability through output structure; Paper 2 achieves it through validated post-hoc explanations.
 
 ** Psychological foundations: why some outputs are easier to work with
   # - Heuristics and familiarity: people prefer structures matching simple construction rules; deviations are harder to rationalize (Tversky and Kahneman, Gigerenzer). Cognitive load: simpler compositions and chunking reduce processing effort (Sweller). Perceptual organization: ordered, symmetric, rule-summarizable layouts are preferred (Feldman, van der Helm, Helmholtz). Explanatory simplicity as a cognitive preference: people prefer explanations that are short, contrastive, and cause-relevant (Lombrozo, Hilton, Chater and Vitányi). This unifies both papers: in packing, interpretable solutions support short verbal justifications; in fear prediction, interpretable explanations highlight the cause-relevant cue (the spider).
 
 ** Technical context: AI for planning and perception
-  # - Brief grounding in the two technical areas. Combinatorial optimization: linear/integer programming, constraint programming, SAT/CP-SAT solvers — these produce multiple distinct optimal plans for the same objective. The challenge is selecting and presenting a plan humans can work with. Deep learning for vision: convolutional networks, transformers, large-scale pretraining and transfer — these achieve strong accuracy but are opaque. Explainability and reliability-aware evaluation are essential for clinical and safety-critical use. The thesis investigates interpretability within these two technical landscapes.
+  # - Brief grounding in the two technical areas. Combinatorial optimization: linear/integer programming, constraint programming, SAT/CP-SAT solvers -- these produce multiple distinct optimal plans for the same objective. The challenge is selecting and presenting a plan humans can work with. Deep learning for vision: convolutional networks, transformers, large-scale pretraining and transfer -- these achieve strong accuracy but are opaque. Explainability and reliability-aware evaluation are essential for clinical and safety-critical use. The thesis investigates interpretability within these two technical landscapes.
 
 ** Domain 1: Combinatorial decision support
   # - Packing and allocation problems are foundational in operations research with high-impact applications (logistics, healthcare scheduling, capital budgeting). Multiple optimal solutions can differ markedly in how understandable they are. Behavioral work shows humans use simple strategies and visual cues, but feature-based criteria for interpretability among tied optima are scarce. Practical costs of lacking interpretability: plans rejected, edits slow or error-prone, misallocations undetected.
@@ -106,7 +113,7 @@ Together, the studies link psychological theory to AI practice and propose conci
   # - Specific phobias are prevalent; exposure therapy is effective but resource-intensive. Computerized and VR-based variants need automated fear estimation from visual content. Computer vision can predict affect from images, but phobia-specific fear prediction under strict generalization with validated explanations is limited. Practical costs of lacking interpretability: clinicians cannot trust or calibrate predictions, risking mismatched stimulus intensity and reduced safety.
 
 ** Gaps, rationale, and the measurement argument
-  # - Packing: no quantitative, feature-based account of why tied optima differ in interpretability; limited behavioral grounding of solution evaluation. Vision: few phobia-specific predictors validated under dual-level generalization (new raters and new images); explanations rarely checked against domain annotations. Methodological gap across both domains: most interpretability research lacks an upper bound — preferences or performance are reported without asking how much variance could any model explain given human agreement. This thesis addresses that gap through coherence ceilings (packing) and ICC bounds (vision), alongside nested CV, hierarchical bootstrap, and error modeling.
+  # - Packing: no quantitative, feature-based account of why tied optima differ in interpretability; limited behavioral grounding of solution evaluation. Vision: few phobia-specific predictors validated under dual-level generalization (new raters and new images); explanations rarely checked against domain annotations. Methodological gap across both domains: most interpretability research lacks an upper bound -- preferences or performance are reported without asking how much variance could any model explain given human agreement. This thesis addresses that gap through coherence ceilings (packing) and ICC bounds (vision), alongside nested CV, hierarchical bootstrap, and error modeling.
 
 ** Research questions and contributions
   # - RQ1: Which structural properties (heuristic alignment, compositional simplicity, visual order) drive interpretability preferences among equally optimal solutions? RQ2: Can pretrained vision models predict group-level fear reliably under strict generalization, and are predictions grounded in spider-salient cues? RQ3: What reliability bounds and error patterns constrain performance and interpretability, and how do they inform evaluation standards? Contributions: behavioral criteria for interpretability (HC, CC, VC); clinically grounded fear prediction with validated explanations; a ceiling-aware, variance-conscious evaluation approach applicable across domains.
@@ -125,7 +132,39 @@ Together, the studies link psychological theory to AI practice and propose conci
 #+LATEX: \end{refsection}
 #+LATEX:\end{spacing}
 
+* Associated Publications
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+The following publications were completed during the doctoral period.
+My contributions are described using the CRediT taxonomy.
+
+** First-Authored Publications
+- [cite/t:@peglerUnpackingInterpretability2026]. /Unpacking Interpretability: Human-Centered Criteria for Optimal Combinatorial Solutions/ (Chapter [[#ch-packing]]). Under review at /Computers in Human Behavior Reports/.
+- [cite/t:@peglerSpiderNetsVisionModels2026]. /SpiderNets: Vision Models Predict Human Fear From Aversive Images/ (Chapter [[#ch-cv]]). Under review at /Computers in Human Behavior Reports/.
+
+** Co-Authored Publications
+- [cite/t:@karnerVisualAttributesSpiders2024]. /Visual attributes of spiders associated with aversiveness in spider-fearful individuals: A machine learning analysis./ Under review. My contribution: Methodology, Writing -- Review & Editing. Relevance: Provided the categories for the image dataset used in Chapter [[#ch-cv]].
+- [cite/t:@zhangMappingMentalRepresentation2025]. /Mapping mental representation of arachnophobia stimuli through similarity modeling./ Under review at /Journal of Affective Disorders/. My contribution: Validation, Writing -- Review & Editing. Relevance: Relates to the mental representation of spider stimuli studied in Chapter [[#ch-cv]].
+- [cite/t:@buchananMeasuringSemanticPriming2025]. /Measuring the semantic priming effect across many languages./ Published in /Nature Human Behaviour/. My contribution: Investigation, Writing -- Review & Editing.
+
+** References                                                        :ignore:
+:PROPERTIES:
+:UNNUMBERED: t
+:END:
+
+#+LATEX:\begin{spacing}{1.25}
+#+LATEX: \floatbarrier
+#+LATEX: \printbibliography[heading=subbibliography,title={References}]
+#+LATEX: \end{refsection}
+#+LATEX:\end{spacing}
+
+
 * Interpretability of Combinatorial Packing Solutions
+:PROPERTIES:
+:CUSTOM_ID: ch-packing
+:END:
 #+LATEX: \begin{refsection}
 
 #+LATEX: \vspace{1em}
@@ -701,6 +740,10 @@ This research was funded by the Austrian Research Promotion Agency (FFG), Projec
 #+LATEX:\end{spacing}
 
 * Interpretability of Neural Networks Fine-Tuned to Predict Human Fear
+:PROPERTIES:
+:CUSTOM_ID: ch-cv
+:END:
+
 #+LATEX: \begin{refsection}
 
 #+LATEX: \vspace{1em}

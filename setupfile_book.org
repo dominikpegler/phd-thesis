@@ -1,5 +1,5 @@
 #+LATEX_CLASS: book
-#+LATEX_CLASS_OPTIONS: [12pt,letterpaper,twoside,openany]
+#+LATEX_CLASS_OPTIONS: [12pt,a4paper,twoside,openany]
 
 # Citation export configuration
 #+cite_export: biblatex apa
@@ -18,7 +18,35 @@
 # +LATEX_HEADER: \usepackage{newtxtext}
 # #+LATEX_HEADER: \usepackage{newtxmath}
 
-#+LATEX_HEADER: \usepackage{fourier}
+# #+LATEX_HEADER: \usepackage{newtxtext,newtxmath}
+# #+LATEX_HEADER: \usepackage{tgtermes} % !!
+# #+LATEX_HEADER: \usepackage{fourier} % !!
+# #+LATEX_HEADER: \usepackage{libertinus} % !!!
+
+# #+LATEX_HEADER: \usepackage[sc]{mathpazo} % !!!
+
+# !!!
+# #+LATEX_HEADER: \usepackage{tgpagella}
+# #+LATEX_HEADER: \usepackage{newtxmath}
+
+# choice 3
+# #+LATEX_HEADER: \usepackage{ebgaramond} % !!!
+
+# choice 4
+# +#LATEX_HEADER: \usepackage{cochineal} % !!
+
+# choice 1
+# +# LATEX_HEADER: \usepackage{ETbb} % !!!
+#+LATEX_HEADER: \usepackage[osf]{ETbb} % !!!
+#+LATEX_HEADER: \usepackage[varqu,varl]{inconsolata} % mono
+
+# choice 2
+# #+LATEX_HEADER: \usepackage{XCharter} % !!!
+
+# #+LATEX_HEADER: \usepackage{palatino} % !!
+
+# #+LATEX_HEADER: \usepackage{eulervm} % !!!
+#+LATEX_HEADER: \usepackage{newtxmath} % !!!
 
 # Book margins
 #+LATEX_HEADER: \usepackage[inner=3cm,outer=2.5cm,top=2.5cm,bottom=3cm]{geometry}
@@ -45,7 +73,7 @@
 # APA7 citations
 #+LATEX_HEADER: \usepackage[american]{babel}
 #+LATEX_HEADER: \usepackage{csquotes}
-#+LATEX_HEADER: \usepackage[style=apa,sortcites=true,sorting=nyt,backend=biber]{biblatex}
+#+LATEX_HEADER: \usepackage[style=apa,sortcites=true,sorting=nyt,backend=biber,annotation=false]{biblatex}
 #+LATEX_HEADER: \DeclareLanguageMapping{american}{american-apa}
 #+LATEX_HEADER: \addbibresource{~/Dropbox/org/ref/ref.bib}
 
