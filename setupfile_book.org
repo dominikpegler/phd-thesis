@@ -70,3 +70,7 @@
 #+latex_header: \usepackage{makecell}   % in the preamble
 # to allow multiindex for rows (see pandas multiindex)
 #+latex_header: \usepackage{multirow}
+
+# space between lines
+#+LATEX_HEADER: \usepackage{setspace}
+#+LATEX_HEADER: \doublespacing
