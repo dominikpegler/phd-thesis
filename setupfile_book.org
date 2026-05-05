@@ -102,3 +102,8 @@
 # space between lines
 #+LATEX_HEADER: \usepackage{setspace}
 #+LATEX_HEADER: \doublespacing
+
+# for code
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{upquote}
+#+LATEX_HEADER: \lstset{basicstyle=\ttfamily\small, breaklines=true}

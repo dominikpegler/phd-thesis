@@ -225,7 +225,7 @@ My contributions are described using the CRediT taxonomy.
 - Zhang, M., Pegler, D., Karner, A., Scharnowski, F., & Melinscak,
   F. (2025). Mapping mental representation of arachnophobia stimuli
   through similarity
-  modeling. /Submitted to Journal of Affective Disorders./ https://doi.org/10.31219/osf.io/j8epm_v4. My contribution: Validation, Writing -- Review & Editing. Relevance: Relates to the mental representation of spider stimuli studied in Chapter [[#ch-cv]
+  modeling. /Submitted to Journal of Affective Disorders./ https://doi.org/10.31219/osf.io/j8epm_v4. My contribution: Validation, Writing -- Review & Editing. Relevance: Relates to the mental representation of spider stimuli studied in Chapter [[#ch-cv]]
 
 - Karner, A., Obenaus, L., Zhang, M., Lor, C., Kostorz, K., Pegler,
   D., Leopold, M., Melinscak, F., Steyrl, D., Scharnowski,
