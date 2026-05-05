@@ -55,6 +55,7 @@ Lange Zeit hatte ich den Glauben, dass alles im Leben alleine schaffbar sein mus
   :UNNUMBERED: t
   :END:
  
+#+LATEX: \addcontentsline{toc}{chapter}{Abstract}
 
 #+LATEX: \lettrine[lines=3, lhang=0.1, nindent=0.5em]{A}{cross optimization and perception tasks, AI systems can produce outputs that are }
 technically correct yet difficult for humans to understand, verify, and act on. This dissertation advances a unifying principle -- cognitive alignment -- arguing that AI should produce decision-ready outputs that are legible, verifiable, and grounded in task-relevant cues so that humans can trust and use them effectively. The principle is developed and tested in two complementary domains, combinatorial decision support and affective vision for digital mental health, from which transferable design rules for human--AI collaboration are derived.
@@ -67,19 +68,18 @@ Both studies adopt a ceiling-aware evaluation methodology -- coherence-based bou
 
 
 * Contents                                                           :ignore:
-#+TOC: headlines 1
-
-* Associated Output :noexport:
-** Preregistrations
-** Published Articles
-** Submitted Articles
-** Outreach                                                        :noexport:
-
-# other stuff
-
+#+TOC: headlines 2
 
 * General Introduction
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+
+#+LATEX: \addcontentsline{toc}{chapter}{General Introduction}
 #+LATEX: \begin{refsection}
+
+
 
 #+begin_comment
 - The introduction should move from broad problem → key concept (interpretability) → terminological clarity → psychological foundations → technical context → the two specific domains → what's missing → what this thesis does → roadmap. Each subsection does one job and hands off cleanly to the next. The terminological discussion comes early because everything after it depends on the reader understanding what you mean by interpretability and how it relates to explainability.
@@ -134,7 +134,7 @@ The contrast between the two system classes maps directly onto the two routes to
 - 2: Argues that packing problems specifically are well suited for studying interpretability because they are archetypal, admit multiple optima, and have measurable structural properties.
 - 3: Reviews behavioral evidence that people bring systematic cognitive strategies to combinatorial tasks and that these strategies are sensitive to solution structure.
 - 4: Describes the practical costs  --  rejection, error-prone editing, undetected misallocations  --  when solution structure is not aligned with human cognition.
-- 5: States the specific gap (no feature-based account connecting structural properties of optimal solutions to interpretability judgments) and previews how Chapter 2 addresses it.
+- 5: States the specific gap (no feature-based account connecting structural properties of optimal solutions to interpretability judgments) and previews how Chapter 1 addresses it.
 #+end_comment
 
 
@@ -156,7 +156,7 @@ Despite the behavioral evidence that people are sensitive to solution structure,
 - 2: Provides epidemiological and treatment context for specific phobias and establishes the computational need for automated fear estimation from images.
 - 3: Argues that phobia-specific fear prediction is a particularly informative testbed because the stimuli are well characterized, the ground truth is behaviorally anchored, and the deployment scenario requires verifiable explanations.
 - 4: Identifies the gaps in existing affective vision work  --  broad constructs, weak generalization tests, unvalidated explanations  --  and explains why they matter for clinical trust.
-- 5: Describes the immediate clinical risks of low interpretability and previews how Chapter 3 addresses the identified gaps.
+- 5: Describes the immediate clinical risks of low interpretability and previews how Chapter 2 addresses the identified gaps.
 #+end_comment
 
 
@@ -197,7 +197,7 @@ Addressing these questions, this thesis makes six contributions:
 - A ceiling-aware evaluation approach  --  coherence bounds and ICC bounds  --  that separates model limitations from irreducible human disagreement and is transferable to other behavioral and computational settings.
 - A set of design principles for cognitively aligned AI outputs, derived from converging evidence across both domains: align outputs with familiar structure and salient cues; evaluate with strong generalization tests and validated explanations; support deployment with ordered presentation and explicit uncertainty awareness.
 
-Chapter 2 addresses RQ1 through an exploratory and a preregistered confirmatory experiment in which participants compared pairs of optimal packing solutions side by side. It reports preference, response-time, and gaze findings and relates them to predefined structural metrics of solution complexity. Chapter 3 addresses RQ2 by fine-tuning four pretrained vision architectures on a dataset of spider images rated for fear, evaluating generalization with nested cross-validation, and combining performance assessment with explanation analyses and systematic error characterization. The General Discussion synthesizes the two lines of evidence, examines how the ceiling-aware methodology reframes what each study achieved, reflects on shared limitations, and proposes directions for interpretability-aware optimization, personalized clinical deployment, and broader domain generalization. Together, the chapters build the case that cognitively aligned, decision-ready outputs can improve interpretability, trust, and safe use whether the AI system produces structured plans or continuous predictions.
+Chapter [[#ch-packing]] addresses RQ1 through an exploratory and a preregistered confirmatory experiment in which participants compared pairs of optimal packing solutions side by side. It reports preference, response-time, and gaze findings and relates them to predefined structural metrics of solution complexity. Chapter [[#ch-cv]] addresses RQ2 by fine-tuning four pretrained vision architectures on a dataset of spider images rated for fear, evaluating generalization with nested cross-validation, and combining performance assessment with explanation analyses and systematic error characterization. The General Discussion synthesizes the two lines of evidence, examines how the ceiling-aware methodology reframes what each study achieved, reflects on shared limitations, and proposes directions for interpretability-aware optimization, personalized clinical deployment, and broader domain generalization. Together, the chapters build the case that cognitively aligned, decision-ready outputs can improve interpretability, trust, and safe use whether the AI system produces structured plans or continuous predictions.
 
 ** References                                                        :ignore:
 :PROPERTIES:
@@ -210,11 +210,15 @@ Chapter 2 addresses RQ1 through an exploratory and a preregistered confirmatory 
 #+LATEX: \end{refsection}
 #+LATEX:\end{spacing}
 
+
 * Associated Publications
   :PROPERTIES:
   :UNNUMBERED: t
   :END:
 
+
+#+LATEX: \addcontentsline{toc}{chapter}{Associated Publications}
+  
 The following publications were completed during the doctoral period.
 My contributions are described using the CRediT taxonomy.
 
@@ -228,10 +232,6 @@ My contributions are described using the CRediT taxonomy.
 
 
 ** Co-Authored Publications
-- [cite/t:@karnerVisualAttributesSpiders2024]. /Visual attributes of spiders associated with aversiveness in spider-fearful individuals: A machine learning analysis./ Under review. My contribution: Methodology, Writing -- Review & Editing. Relevance: Provided the categories for the image dataset used in Chapter [[#ch-cv]].
-- [cite/t:@zhangMappingMentalRepresentation2025]. /Mapping mental representation of arachnophobia stimuli through similarity modeling./ Under review at /Journal of Affective Disorders/. My contribution: Validation, Writing -- Review & Editing. Relevance: Relates to the mental representation of spider stimuli studied in Chapter [[#ch-cv]].
-- [cite/t:@buchananMeasuringSemanticPriming2025]. /Measuring the semantic priming effect across many languages./ Published in /Nature Human Behaviour/. My contribution: Investigation, Writing -- Review & Editing.
-
 :PROPERTIES:
 :UNNUMBERED: t
 :END:
@@ -239,18 +239,19 @@ My contributions are described using the CRediT taxonomy.
 - Buchanan, E. M., Cuccolo, K., Heyman, T., van Berkel, N., Coles,
   N. A., Iyer, A., Peters, K., … Pegler, D., … Lewis, S. C. (2025). Measuring the semantic
   priming effect across many languages. /Nature Human Behaviour/, (2025),
-  1–20. https://doi.org/10.1038/s41562-025-02254-x
+  1–20. https://doi.org/10.1038/s41562-025-02254-x. My contribution: Investigation, Writing -- Review & Editing.
 
 - Zhang, M., Pegler, D., Karner, A., Scharnowski, F., & Melinscak,
   F. (2025). Mapping mental representation of arachnophobia stimuli
   through similarity
-  modeling. /Submitted to Journal of Affective Disorders./ https://doi.org/10.31219/osf.io/j8epm_v4
+  modeling. /Submitted to Journal of Affective Disorders./ https://doi.org/10.31219/osf.io/j8epm_v4. My contribution: Validation, Writing -- Review & Editing. Relevance: Relates to the mental representation of spider stimuli studied in Chapter [[#ch-cv]
 
 - Karner, A., Obenaus, L., Zhang, M., Lor, C., Kostorz, K., Pegler,
   D., Leopold, M., Melinscak, F., Steyrl, D., Scharnowski,
   F. (2024). Visual attributes of spiders associated with
   aversiveness in spider-fearful individuals: A machine learning
-  analysis. /Under review/. https://doi.org/10.31234/osf.io/ht2pr
+  analysis. /Under review/. https://doi.org/10.31234/osf.io/ht2pr. My contribution: Methodology, Writing -- Review & Editing. Relevance: Provided the categories for the image dataset used in Chapter [[#ch-cv]].
+
 
 * Interpretability of Combinatorial Packing Solutions
 :PROPERTIES:
@@ -749,18 +750,21 @@ Within the combinatorial packing paradigm studied here, and potentially in relat
 ** Data Availability Statement
 :PROPERTIES:
 :CUSTOM_ID: 2-data-availability-statement
+:UNNUMBERED: t
 :END:
 The code, materials, and data used in this research are publicly available at the Open Science Framework (OSF) repository. All shared data have been de-identified to protect participant privacy, with direct identifiers removed and indirect identifiers minimized. Eye-tracking data consist solely of numerical measurements (gaze coordinates, fixation durations, timestamps, and related metrics); no video recordings of participants were collected or stored during the study. You can access them at the following link: https://osf.io/4wjgp/.
 
 ** CRediT Authorship Contribution Statement
 :PROPERTIES:
 :CUSTOM_ID: 2-credit-authorship-contribution-statement
+:UNNUMBERED: t
 :END:
 DP: Conceptualization, Investigation, Methodology, Software, Formal Analysis, Data Curation, Visualization, Writing - Original Draft, Writing - Review & Editing. FJ: Methodology, Writing - Review & Editing. DS: Writing - Review & Editing. FS: Resources, Supervision, Writing - Review & Editing. FM: Supervision, Conceptualization, Investigation, Methodology, Software, Writing - Original Draft, Writing - Review & Editing.
 
 ** Acknowledgments
 :PROPERTIES:
 :CUSTOM_ID: 2-acknowledgments
+:UNNUMBERED: t
 :END:
 We would like to thank Rita Hansl, Alex Karner, Kathrin Kostorz, Cindy Lor, Daniel Reiter, Annika Trapple, Nicole Wimmer, and Mengfan Zhang for their contributions during the development of the web-based experiment. We thank Hermann Kaindl for helpful discussions and feedback during the development of this research.
 
@@ -768,12 +772,14 @@ We would like to thank Rita Hansl, Alex Karner, Kathrin Kostorz, Cindy Lor, Dani
 ** Competing Interests
 :PROPERTIES:
 :CUSTOM_ID: 2-competing-interests
+:UNNUMBERED: t
 :END:
 The authors declare no competing interests.
 
 ** Funding
 :PROPERTIES:
 :CUSTOM_ID: 2-funding
+:UNNUMBERED: t
 :END:
 # This work was supported by grant FA471030 from the Austrian Research Promotion Agency (German: Österreichische Forschungsförderungsgesellschaft, FFG).
 
@@ -1070,6 +1076,7 @@ In conclusion, pretrained vision models estimated group-level fear ratings from 
 ** Data Availability Statement
 :PROPERTIES:
 :CUSTOM_ID: 3-data-availability-statement
+:UNNUMBERED: t
 :END:
 
 The data used in this study are available from previous work. The spider images are from [cite/t:@zhangSpiDaMRIBehavioralFMRI2025], the fear ratings for these images are from [cite/t:@karnerSpiDaDatasetSelfreport2024], and the categorization taxonomy for the images is from [cite/t:@karnerVisualAttributesSpiders2024]. The code and materials to reproduce the analysis are available at https://osf.io/8b5a2/.
@@ -1077,24 +1084,29 @@ The data used in this study are available from previous work. The spider images 
 ** CRediT Authorship Contribution Statement
 :PROPERTIES:
 :CUSTOM_ID: 3-credit-authorship-contribution-statement
+:UNNUMBERED: t
 :END:
+
 DP: Conceptualization, Investigation, Methodology, Software, Formal Analysis, Data Curation, Visualization, Writing -- Original Draft, Writing -- Review & Editing. DS: Methodology, Writing -- Review & Editing. MZ: Data Curation, Writing -- Review & Editing. AK: Data Curation, Writing -- Review & Editing. JA: Formal Analysis, Writing -- Review & Editing. FS: Resources, Supervision, Writing -- Review & Editing. FM: Supervision, Conceptualization, Methodology, Writing -- Original Draft, Writing -- Review & Editing.
 
 ** Acknowledgments
 :PROPERTIES:
 :CUSTOM_ID: 3-acknowledgments
+:UNNUMBERED: t
 :END:
 We would like to thank Jázmin Mikó for significant contributions to the spider labeling, which were instrumental in advancing this project.
 
 ** Competing Interests
 :PROPERTIES:
 :CUSTOM_ID: 3-competing-interests
+:UNNUMBERED: t
 :END:
 The authors declare no competing interests.
 
 ** Funding
 :PROPERTIES:
 :CUSTOM_ID: 3-funding
+:UNNUMBERED: t
 :END:
 # This work was supported by grants FA927913 and FA887474 from the Austrian Research Promotion Agency (FFG).
 
@@ -1113,6 +1125,11 @@ This research was funded by the Austrian Research Promotion Agency (FFG), Projec
 #+LATEX:\end{spacing}
 
 * General Discussion
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+#+LATEX: \addcontentsline{toc}{chapter}{General Discussion}
 #+LATEX: \begin{refsection}
 
 # should be roughly 10 pages
@@ -1217,7 +1234,7 @@ Beide Studien verwenden eine obergrenzenbewusste Evaluationsmethodik -- kohären
 
 
 \newpage
-** Supplementary Information Chapter 2
+** Supplementary Information Chapter 1
 #+LATEX: \begin{refsection}
 *** Supplementary Methods
 <<sec:supplementary-methods>>
@@ -1573,7 +1590,7 @@ Based on the AIC-based model selection procedure, the intercept-only model was s
 #+LATEX: \end{refsection}
 #+LATEX:\end{spacing}
 
-** Supplementary Information Chapter 3
+** Supplementary Information Chapter 2
 #+LATEX: \begin{refsection}
 *** Supplementary Methods
 <<sec:sup-methods>>
