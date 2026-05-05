@@ -95,36 +95,17 @@ This thesis studies interpretability in two complementary domains. The first is 
 
 ** What is interpretability? Definitions and the relationship to explainability
 
-#+begin_comment
-Rationale for this subsection:
-- The field has no agreed definitions; acknowledge the mess upfront.
-- Survey the main positions briefly so the reader sees the landscape.
-- Take a clear position: interpretability is functional and human-centered, not a model property.
-- Distinguish explainability as a toolbox that can serve interpretability but is not the same thing.
-- Introduce the faithfulness vs. plausibility distinction because it matters later.
-- Signal that the two studies use different routes to interpretability without discussing study specifics.
-- Psychological factors (preview chapter 2)
-#+end_comment
+The terms "interpretability" and "explainability" are used widely in machine learning and human–computer interaction, but they are used inconsistently. Some authors treat them as synonyms [cite/p:@barredoarrietaExplainableArtificialIntelligence2020; @gilpinExplainingExplanationsOverview2018]. Others draw lines between them, though not always in the same place. [cite/t:@liptonMythosModelInterpretability2017] distinguishes transparency -- the degree to which a model's internals can be inspected -- from post-hoc explanation, the use of auxiliary methods to account for a model's behavior after the fact. [cite/t:@rudinStopExplainingBlack2019] argues that in high-stakes settings one should prefer inherently interpretable models to opaque ones with post-hoc explanations attached, because such explanations can misrepresent what the model actually does. [cite/t:@murdochDefinitionsMethodsApplications2019] propose a broader umbrella, defining interpretable machine learning as the extraction of relevant knowledge from a model concerning relationships in data or learned by the model. What these positions share is a concern with whether a human can, in practice, understand what a system is doing and why.
+
+This thesis adopts a functional, human-centered definition that separates the two terms. /Interpretability/ is a property of the encounter between a person and an AI output: the degree to which the user can understand the output, verify that it is reasonable, and act on it in the context of the task at hand [cite/p:@doshi-velezRigorousScienceInterpretable2017;@poursabzi-sangdehManipulatingMeasuringModel2021]. It is not a fixed attribute of a model; it depends on who is looking, what they need to do, and how the output is presented. /Explainability/ refers to the methods and artifacts -- saliency maps, feature attributions, natural-language rationales -- that are designed to make a model's internal reasoning accessible [cite/p:@barredoarrietaExplainableArtificialIntelligence2020]. Explanations are tools that can serve interpretability, but they are neither necessary nor sufficient for it. A system can be interpretable without any post-hoc explanation if its output is structured in a way that people can readily grasp [cite/p:@rudinStopExplainingBlack2019]. Conversely, an explanation can look plausible to a user while being unfaithful to the model's actual computation [cite/p:@jacoviFaithfullyInterpretableNLP2020], producing the appearance of interpretability without the substance.
 
 
-The terms "interpretability" and "explainability" are used widely in machine learning and human–computer interaction, but they are used inconsistently. Some authors treat them as synonyms [cite/p:@barredoarrietaExplainableArtificialIntelligence2020; @gilpinExplainingExplanationsOverview2018]. Others draw sharp lines between them, though not always in the same place. [cite/t:@liptonMythosModelInterpretability2017] distinguishes transparency, the degree to which a model's internal workings can be inspected, from post-hoc interpretability, the degree to which its behavior can be explained after the fact. [cite/t:@rudinStopExplainingBlack2019] argues that in high-stakes settings one should use inherently interpretable models rather than attaching post-hoc explanations to opaque ones, because those explanations can be unfaithful to what the model actually does. [cite/t:@murdochDefinitionsMethodsApplications2019] attempt to unify the field by defining interpretable machine learning as the extraction of relevant knowledge from a model concerning relationships in data or learned by the model, covering both transparent designs and post-hoc methods under one umbrella. What all these positions share is a concern with whether a human can, in practice, understand what a system is doing and why.
+This distinction maps directly onto the two studies in this thesis. The packing study (Chapter [[#ch-packing]]) achieves interpretability through the structure of the output itself: among equally optimal solutions, some are easier to understand than others, and no explanation method is needed. The vision study (Chapter [[#ch-cv]]) works with opaque models whose predictions require explainability techniques to become interpretable, and then validates whether those explanations are faithful rather than merely plausible. The next section clarifies why these two domains demand different methodological routes to the same goal.
 
-This thesis takes a functional, human-centered position. Interpretability is treated as a property of the encounter between a person and an AI output: the degree to which the user can understand the output, verify that it is reasonable, and work with it in the context of the task at hand [cite/p:@doshi-velezRigorousScienceInterpretable2017; @poursabziManipulatingMeasuringModel2021]. It is not a fixed attribute of a model or an algorithm; it depends on who is looking, what they need to do, and how the output is presented. Explainability, by contrast, refers to specific methods and artifacts, such as saliency maps, feature attributions, or natural-language rationales, that are designed to make a model's reasoning accessible [cite/p:@barredoarrietaExplainableArtificialIntelligence2020]. Explanations are tools that can serve interpretability, but they are not the same thing. An explanation can look plausible to a user while being unfaithful to the model's actual computation [cite/p:@jacoviTowardsFaithfullyInterpretable2020], and a system can be interpretable without any post-hoc explanation if the output itself is structured in a way that people can readily grasp [cite/p:@rudinStopExplainingBlack2019].
-
-This distinction matters for how the two studies in this thesis are framed. One study achieves interpretability through the structure of the output itself, without applying any explanation method. The other works with opaque models and uses explainability techniques to make predictions transparent, then validates whether those explanations are faithful rather than merely plausible. Both routes serve the same goal, making AI outputs understandable, checkable, and grounded in task-relevant information, but they do so through different means and require different kinds of evidence.
-
-The functional view just described implies that whether a particular output is interpretable depends on how it interacts with human cognition. People tend to prefer structures that match simple construction rules, can be compressed into short verbal descriptions, and align with strategies they already use [cite/p:@tverskyJudgmentUncertaintyHeuristics1974; @gigerenzerHeuristicDecisionMaking2011; @feldmanSimplicityPrinciplePerception2016; @swellerCognitiveLoadProblem1988]. They also prefer explanations that are brief, contrastive, and anchored in causes rather than correlations [cite/p:@millerExplanationArtificialIntelligence2019; @lombrozoStructureFunctionExplanations2006]. These regularities apply across both domains studied here: in combinatorial optimization, they bear on which solutions people find easier to justify and edit; in affective vision, they bear on which explanations are experienced as credible and grounded. Chapter [[#ch-packing]] develops these psychological foundations in detail and connects them to specific structural properties of solutions.
 
 ** Technical context: AI for planning and perception
 
-The interpretability challenges described above take different forms depending on the kind of AI system involved. The two studies in this thesis work with fundamentally different classes of system, and understanding what each class produces  --  and where its interpretability challenge lies  --  clarifies why the two chapters take different methodological routes to the same goal.
-
-The first class comprises combinatorial solvers. Problems such as bin packing, scheduling, and resource allocation are typically formulated as integer or constraint programs and solved with exact methods that explore a combinatorial search tree and return solutions that are provably optimal with respect to a stated objective [cite/p:@kellererKnapsackProblems2004; @cacchianiKnapsackProblemsOverview2022]. Crucially, many problem instances admit multiple distinct optima: solutions that achieve the same objective value yet differ markedly in their internal structure. Because the solver's reasoning is a search process rather than a parametric model, there are no weights or gradients to inspect after the fact. The output is a finished assignment  --  items to bins, patients to nurses  --  and any judgment about its quality or intelligibility must be made on the basis of that assignment alone. Interpretability, in this setting, is a property of the solution structure itself: how the elements are grouped, whether the grouping follows a recognizable logic, and whether the result can be summarized in a short verbal description.
-
-The second class comprises deep neural networks for visual perception. Convolutional neural networks [cite/p:@lecunDeepLearning2015] and vision transformers [cite/p:@dosovitskiyImageWorth16x162021] learn hierarchical feature representations from large image corpora during pretraining and can be adapted to new tasks through transfer learning with comparatively few labeled examples [cite/p:@yosinskiHowTransferableAre2014]. These models  --  whether supervised or self-supervised, convolutional or attention-based  --  share a common property: they are parametrically opaque, with millions of learned parameters and no symbolic rules that a user could read. Their output is a continuous prediction rather than a discrete plan. Because the process that produced the prediction cannot be directly inspected, interpretability must come from post-hoc explanation methods [cite/p:@barredoarrietaExplainableArtificialIntelligence2020]. Crucially, the faithfulness of those explanations must be independently validated rather than taken at face value [cite/p:@jacoviTowardsFaithfullyInterpretable2020; @adebayoSanityChecksSaliency2020].
-
-The contrast between the two system classes maps directly onto the two routes to interpretability introduced in the preceding section. Combinatorial solvers are process-transparent but output-variable: multiple optima exist, and the challenge is to identify or select the ones whose structure aligns with human cognition. Deep networks are output-fixed but process-opaque: each image receives a single prediction, and the challenge is to make the reasoning behind that prediction visible and verifiable. This distinction is not unique to the domains studied here; it arises whenever AI systems produce either structured plans or continuous predictions for human use. Both routes serve the same functional goal  --  producing outputs that users can understand, check, and act on  --  but they require different kinds of evidence and different design interventions. The domain-specific sections that follow develop each route in the context of its application.
-
+The two studies in this thesis work with fundamentally different classes of AI system, and the contrast explains why the two chapters take different methodological routes to the same goal. Combinatorial solvers -- the integer and constraint programs used in packing, scheduling, and resource allocation -- explore a search tree and return assignments that are provably optimal with respect to a stated objective [cite/p:@kellererKnapsackProblems2004; @cacchianiKnapsackProblemsOverview2022]. Crucially, many instances admit multiple distinct optima that differ markedly in structure, and because the solver's reasoning is a search process rather than a parametric model, there are no weights or gradients to inspect after the fact. Interpretability must therefore come from the solution itself. Deep neural networks for visual perception -- whether convolutional [cite/p:@lecunDeepLearning2015] or transformer-based [cite/p:@dosovitskiyImageWorth16x162021] -- occupy the opposite position. They learn hierarchical feature representations from large image corpora [cite/p:@yosinskiHowTransferableAre2014] and produce a single prediction per input, but their millions of learned parameters make the process that produced the prediction opaque. Interpretability must therefore come from post-hoc explanation methods whose faithfulness is independently validated [cite/p:@barredoarrietaExplainableArtificialIntelligence2020; @jacoviFaithfullyInterpretableNLP2020; @adebayoSanityChecksSaliency2020]. In short, combinatorial solvers are process-transparent but output-variable, and the challenge is to select optima whose structure aligns with human cognition; deep networks are output-fixed but process-opaque, and the challenge is to make the reasoning behind a prediction visible and verifiable. This distinction is not unique to the domains studied here; it arises whenever AI systems produce either structured plans or continuous predictions for human use. The domain-specific sections that follow develop each route in the context of its application.
 
 ** Domain 1: Combinatorial decision support and the interpretability of optimal solutions
 
@@ -166,7 +147,7 @@ Specific phobias are among the most prevalent mental health conditions, with lif
 
 Among affective vision tasks, phobia-specific fear prediction occupies a distinctive position that makes it especially informative for studying interpretability. General affective image analysis  --  predicting valence, arousal, or sentiment from photographs  --  is well established, with deep-learning approaches achieving high correlations on standard affect datasets [cite/p:@kragelEmotionSchemasAre2019; @kimBuildingEmotionalMachines2018; @sunDiscoveringAffectiveRegions2016; @conwellPerceptualPrimacyFeeling2025; @rediesGlobalImageProperties2020]. Phobia-specific fear differs from general affect in ways that matter for interpretability. The visual stimuli are well defined: spider images vary along known perceptual dimensions that can be systematically annotated [cite/p:@karnerVisualAttributesSpiders2024] and cross-referenced with model behavior. The ground truth is behaviorally anchored: fear ratings come from spider-fearful individuals responding to stimuli directly relevant to their condition [cite/p:@karnerSpiDaDatasetSelfreport2024]. Finally, the deployment scenario creates a concrete, safety-critical use case: the model's output feeds into a therapeutic sequence, and a clinician must be able to verify that the prediction is based on spider-relevant cues rather than incidental background correlations. This combination of clinical relevance, well-characterized stimuli, and a clear verification need is what distinguishes this task from general image regression.
 
-However, the step from general affective vision to clinically grounded, explanation-validated fear prediction has not yet been fully taken. Most computational affect studies target broad affective dimensions rather than disorder-specific fear and use within-sample evaluation rather than strict out-of-sample generalization to new raters /and/ new images. Saliency maps and other post-hoc explanations are typically presented as qualitative illustrations rather than submitted to quantitative validation against task-relevant annotations [cite/p:@adebayoSanityChecksSaliency2020]. This matters because improving benchmark accuracy does not by itself ensure that models rely on human-like or clinically plausible visual strategies [cite/p:@linsleyBetterArtificialIntelligence2025]; a model may achieve low error while relying on features that have no clinical meaning. Without independent validation, post-hoc explanations risk appearing credible while misrepresenting the model's actual decision process [cite/p:@jacoviTowardsFaithfullyInterpretable2020], producing interpretability in appearance but not in substance.
+However, the step from general affective vision to clinically grounded, explanation-validated fear prediction has not yet been fully taken. Most computational affect studies target broad affective dimensions rather than disorder-specific fear and use within-sample evaluation rather than strict out-of-sample generalization to new raters /and/ new images. Saliency maps and other post-hoc explanations are typically presented as qualitative illustrations rather than submitted to quantitative validation against task-relevant annotations [cite/p:@adebayoSanityChecksSaliency2020]. This matters because improving benchmark accuracy does not by itself ensure that models rely on human-like or clinically plausible visual strategies [cite/p:@linsleyBetterArtificialIntelligence2025]; a model may achieve low error while relying on features that have no clinical meaning. Without independent validation, post-hoc explanations risk appearing credible while misrepresenting the model's actual decision process [cite/p:@jacoviFaithfullyInterpretableNLP2020], producing interpretability in appearance but not in substance.
 
 When interpretability is absent in this domain, the practical risks are immediate. If a clinician cannot inspect what the model is reacting to, there is no basis for judging whether a predicted fear level is trustworthy. Stimulus intensity may be miscalibrated, leading to exposures that are either therapeutically ineffective or overwhelming [cite/p:@craskeMaximizingExposureTherapy2014]. These risks underscore that accuracy without transparency is insufficient for clinical adoption. Chapter [[#ch-cv]] addresses these gaps by evaluating pretrained vision models under strict out-of-sample conditions and validating whether their predictions are grounded in task-relevant visual cues.
 
@@ -747,21 +728,21 @@ Ultimately, a longer-term goal is to develop a unified cognitive model that inte
 
 Within the combinatorial packing paradigm studied here, and potentially in related optimization problems, our results indicate that human preference for interpretable machine solutions is shaped by three quantifiable structural properties: visual order, alignment with a greedy heuristic, and compositional simplicity. These findings yield actionable design principles for interpretability-aware solution presentation and optimization. For presentation, visual-order complexity can be reduced by sorting bins and items so that perceptual disorder is lower. For optimization, interpretability can be treated as a secondary criterion, for instance by preferring solutions with lower CC and HC among equally good candidates, by breaking ties in favor of lower CC/HC, by adding small penalties for complexity in multi-objective formulations [cite/p:@ehrgottMulticriteriaOptimization2005], or by screening a shortlist of optimal solutions and presenting those that are the most interpretable. More broadly, integrating interpretability as an explicit objective alongside traditional performance criteria may help enhance transparency, accelerate appropriate human reactions, strengthen trust, and support decisive control within human–AI interactions for problem-solving tasks.
 
-** Data Availability Statement
+*** Data Availability Statement
 :PROPERTIES:
 :CUSTOM_ID: 2-data-availability-statement
 :UNNUMBERED: t
 :END:
 The code, materials, and data used in this research are publicly available at the Open Science Framework (OSF) repository. All shared data have been de-identified to protect participant privacy, with direct identifiers removed and indirect identifiers minimized. Eye-tracking data consist solely of numerical measurements (gaze coordinates, fixation durations, timestamps, and related metrics); no video recordings of participants were collected or stored during the study. You can access them at the following link: https://osf.io/4wjgp/.
 
-** CRediT Authorship Contribution Statement
+*** CRediT Authorship Contribution Statement
 :PROPERTIES:
 :CUSTOM_ID: 2-credit-authorship-contribution-statement
 :UNNUMBERED: t
 :END:
 DP: Conceptualization, Investigation, Methodology, Software, Formal Analysis, Data Curation, Visualization, Writing - Original Draft, Writing - Review & Editing. FJ: Methodology, Writing - Review & Editing. DS: Writing - Review & Editing. FS: Resources, Supervision, Writing - Review & Editing. FM: Supervision, Conceptualization, Investigation, Methodology, Software, Writing - Original Draft, Writing - Review & Editing.
 
-** Acknowledgments
+*** Acknowledgments
 :PROPERTIES:
 :CUSTOM_ID: 2-acknowledgments
 :UNNUMBERED: t
@@ -769,14 +750,14 @@ DP: Conceptualization, Investigation, Methodology, Software, Formal Analysis, Da
 We would like to thank Rita Hansl, Alex Karner, Kathrin Kostorz, Cindy Lor, Daniel Reiter, Annika Trapple, Nicole Wimmer, and Mengfan Zhang for their contributions during the development of the web-based experiment. We thank Hermann Kaindl for helpful discussions and feedback during the development of this research.
 
 
-** Competing Interests
+*** Competing Interests
 :PROPERTIES:
 :CUSTOM_ID: 2-competing-interests
 :UNNUMBERED: t
 :END:
 The authors declare no competing interests.
 
-** Funding
+*** Funding
 :PROPERTIES:
 :CUSTOM_ID: 2-funding
 :UNNUMBERED: t
@@ -1073,7 +1054,7 @@ The same framework can extend beyond arachnophobia to other specific phobias (fo
 
 In conclusion, pretrained vision models estimated group-level fear ratings from spider images with substantial accuracy and interpretable visual grounding. Within research on affective computer vision, these results align with evidence that visual features can meaningfully predict affective judgments and extend this work to phobia-specific fear. The findings provide the foundation for clinician-supervised exposure therapy workflows by enabling informed stimulus selection and graded progression. They motivate deployment strategies that explicitly account for prediction uncertainty, support personalization from modest numbers of patient ratings, extend to other phobia domains and to video-based VR, and maintain transparent, quantitatively validated explanations. Together, the findings represent a step toward safety-aware, image-based assistants that can help make exposure therapy more adaptive and scalable.
 
-** Data Availability Statement
+*** Data Availability Statement
 :PROPERTIES:
 :CUSTOM_ID: 3-data-availability-statement
 :UNNUMBERED: t
@@ -1081,7 +1062,7 @@ In conclusion, pretrained vision models estimated group-level fear ratings from 
 
 The data used in this study are available from previous work. The spider images are from [cite/t:@zhangSpiDaMRIBehavioralFMRI2025], the fear ratings for these images are from [cite/t:@karnerSpiDaDatasetSelfreport2024], and the categorization taxonomy for the images is from [cite/t:@karnerVisualAttributesSpiders2024]. The code and materials to reproduce the analysis are available at https://osf.io/8b5a2/.
 
-** CRediT Authorship Contribution Statement
+*** CRediT Authorship Contribution Statement
 :PROPERTIES:
 :CUSTOM_ID: 3-credit-authorship-contribution-statement
 :UNNUMBERED: t
@@ -1089,21 +1070,21 @@ The data used in this study are available from previous work. The spider images 
 
 DP: Conceptualization, Investigation, Methodology, Software, Formal Analysis, Data Curation, Visualization, Writing -- Original Draft, Writing -- Review & Editing. DS: Methodology, Writing -- Review & Editing. MZ: Data Curation, Writing -- Review & Editing. AK: Data Curation, Writing -- Review & Editing. JA: Formal Analysis, Writing -- Review & Editing. FS: Resources, Supervision, Writing -- Review & Editing. FM: Supervision, Conceptualization, Methodology, Writing -- Original Draft, Writing -- Review & Editing.
 
-** Acknowledgments
+*** Acknowledgments
 :PROPERTIES:
 :CUSTOM_ID: 3-acknowledgments
 :UNNUMBERED: t
 :END:
 We would like to thank Jázmin Mikó for significant contributions to the spider labeling, which were instrumental in advancing this project.
 
-** Competing Interests
+*** Competing Interests
 :PROPERTIES:
 :CUSTOM_ID: 3-competing-interests
 :UNNUMBERED: t
 :END:
 The authors declare no competing interests.
 
-** Funding
+*** Funding
 :PROPERTIES:
 :CUSTOM_ID: 3-funding
 :UNNUMBERED: t
@@ -1139,7 +1120,7 @@ act on them. It studied this question in two domains that place different demand
 
 ** Cross-Domain Synthesis: Cognitive Alignment as a Unifying Principle
 
-The General Introduction defined interpretability as a property of the encounter between a person and an AI output and proposed two complementary routes to it: interpretability through the structure of the output itself, when the system is process-transparent but output-variable, and interpretability through validated post-hoc explanations, when the system is output-fixed but process-opaque [cite/p:@doshi-velezRigorousScienceInterpretable2017; @poursabziManipulatingMeasuringModel2021]. The two empirical chapters instantiated these routes and produced converging evidence for a shared underlying principle.
+The General Introduction defined interpretability as a property of the encounter between a person and an AI output and proposed two complementary routes to it: interpretability through the structure of the output itself, when the system is process-transparent but output-variable, and interpretability through validated post-hoc explanations, when the system is output-fixed but process-opaque [cite/p:@doshi-velezRigorousScienceInterpretable2017; @poursabzi-sangdehManipulatingMeasuringModel2021]. The two empirical chapters instantiated these routes and produced converging evidence for a shared underlying principle.
 
 In the combinatorial domain, interpretability came from the solution itself. People reliably preferred solutions whose structure matched simple construction logic, whose components were easy to encode at a glance, and whose visual layout followed a recognizable order. No explanation method was needed; the output carried its own justification. In the affective vision domain, interpretability could not come from the output -- a single scalar prediction has no internal structure to inspect -- and instead had to be established through explanation methods whose faithfulness was independently checked against task-relevant annotations. Both routes served the same functional goal: making it possible for the user to see where the output comes from, judge when to trust it, and detect when it goes wrong.
 
