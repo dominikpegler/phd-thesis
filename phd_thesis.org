@@ -93,8 +93,8 @@ Human--computer interaction (HCI) has long insisted that systems should be shape
 
 This thesis studies interpretability in two complementary domains. The first is combinatorial decision support, where algorithms produce plans and allocations that humans must evaluate, justify, and often edit. Here, multiple solutions can be equally optimal by formal criteria yet differ sharply in how easy they are to read and reason about; interpretability has to come from the structure of the output itself. The second is affective vision for digital mental health, where models predict how fear-evoking visual stimuli are for use in exposure therapy [cite/p:@craskeMaximizingExposureTherapy2014]. Here, clinicians need to know not only how accurate a prediction is but what the model is reacting to, and clinicians need explanations whose correctness can be checked before any interpretability claim can be made. Across both domains, the same functional requirement applies — that AI outputs must be accessible to the humans who act on them -- but the route to meeting it differs: in combinatorial planning the output must be legible on its own terms, whereas in affective prediction it must be accompanied by explanations that can be verified against task-relevant cues.
 
- The next section clarifies what this thesis means by interpretability and how the term relates to explainability.
-
+When a user asks "why did the system produce this output?", the answer depends on what we mean by interpretability and a concept closely related: explainability. The next section clarifies these terms.
+ 
 
 ** What "why" requires: Definitions of interpretability and the relationship to explainability
 
