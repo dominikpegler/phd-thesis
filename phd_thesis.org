@@ -58,14 +58,13 @@ Lange Zeit hatte ich den Glauben, dass alles im Leben alleine schaffbar sein mus
 #+LATEX: \addcontentsline{toc}{chapter}{Abstract}
 
 #+LATEX: \lettrine[lines=3, lhang=0.1, nindent=0.5em]{A}{cross optimization and perception tasks, AI systems can produce out-}
-puts that are technically correct yet difficult for humans to understand, verify, and act on. This dissertation investigates interpretability in two complementary domains, combinatorial decision support and affective vision for digital mental health. In one, it examines how the structure of AI-generated outputs shapes human judgments of interpretability; in the other, it asks whether post-hoc explanations of opaque model predictions can be verified against task-relevant cues. Together, the two studies inform design considerations for human–AI collaboration. 
+puts that are technically correct yet difficult for humans to understand, verify, and act on. This dissertation examines interpretability in two domains: combinatorial decision support and affective vision for digital mental health. In one domain, it investigates how the structure of AI-generated outputs shapes human judgments of interpretability. In the other, it asks whether post-hoc explanations of model predictions can be verified against task-relevant cues. The two studies together inform design considerations for human–AI collaboration.
 
-Chapter [[#ch-packing]] investigates human-centered interpretability among equally optimal AI-generated solutions to a combinatorial packing problem. In a forced-choice paradigm, participants consistently preferred solutions that aligned with a simple greedy construction heuristic, exhibited simpler within-bin compositions, and were presented in an ordered, rule-like layout. Larger heuristic-alignment differences selectively sped decisions, while webcam-based gaze showed no reliable complexity-driven asymmetries. These results identify three quantifiable, feature-based criteria for enhancing the interpretability of machine-generated plans, making them easier for humans to justify.
+Chapter [[#ch-packing]] investigates interpretability among equally optimal solutions to a combinatorial packing problem. In a forced-choice paradigm, participants consistently preferred solutions that aligned with a simple greedy heuristic, exhibited simpler within-bin compositions, and followed an ordered, rule-like layout. Larger differences in heuristic alignment selectively accelerated decisions, while webcam-based gaze revealed no reliable complexity-driven asymmetries. These results identify three quantifiable structural criteria that make machine-generated plans easier for humans to justify.
 
-Chapter [[#ch-cv]] evaluates the interpretability of pretrained vision models that predict group-level fear from spider images for potential use in computerized exposure therapy. Convolutional and transformer architectures, fine-tuned under strict out-of-sample evaluation, generalized to new raters and new images,
-achieving a mean absolute error (MAE) of approximately 10 units on the 0--100 fear scale for the best single model. Crucially, Grad-CAM attribution analyses indicated that predictions relied on spider-salient image regions, providing evidence that the model's reasoning is grounded in clinically relevant cues. Learning-curve and reliability analyses clarified data requirements and realistic performance ceilings, while systematic error characterization revealed where generalization is most fragile, informing trustworthy deployment.
+Chapter [[#ch-cv]] evaluates pretrained vision models that predict group-level fear from spider images, with potential application in computerized exposure therapy. Convolutional and transformer architectures, fine-tuned and evaluated under strict out-of-sample conditions, generalized to new raters and new images. The best single model achieved a mean absolute error of approximately 10 units on the 0–100 fear scale. Grad-CAM attribution analyses indicated that predictions relied on spider-salient image regions, which provides evidence that the model's reasoning is grounded in clinically relevant cues. Learning-curve and reliability analyses clarified data requirements and realistic performance ceilings. Systematic error characterization revealed where generalization is most fragile.
 
-Together, the findings link psychological theory to AI practice and yield concise design principles: select and present outputs that align with familiar structure where equivalent alternatives exist; validate that opaque models rely on task-relevant cues rather than incidental correlations; evaluate under strong generalization tests; and report performance relative to human-agreement ceilings. The thesis provides evidence that, among equally optimal solutions, those whose structure aligns with familiar cognitive patterns are perceived as more interpretable in a decision-support context, and that pretrained vision models can accurately predict group-level fear from phobia-relevant images while relying on spider-salient image regions, as confirmed through validated visual attribution analyses.
+Together, the findings connect psychological theory to AI practice and yield concise design principles: select and present outputs that align with familiar structure where equivalent alternatives exist; validate that opaque models rely on task-relevant cues rather than incidental correlations; evaluate under strong generalization tests; and report performance relative to human-agreement ceilings. This dissertation provides evidence that, among equally optimal solutions, those whose structure aligns with familiar cognitive patterns are perceived as more interpretable. It further shows that pretrained vision models can accurately predict group-level fear from phobia-relevant images while relying on spider-salient regions, as confirmed through validated visual attribution analyses.
 
 * Contents                                                           :ignore:
 #+TOC: headlines 2
@@ -73,11 +72,11 @@ Together, the findings link psychological theory to AI practice and yield concis
 * General Introduction
   :PROPERTIES:
   :CUSTOM_ID: general-introduction
-  :UNNUMBERED: f
+  :UNNUMBERED: nil
   :END:
 
 
-#+LATEX: \addcontentsline{toc}{chapter}{General Introduction}
+# #+LATEX: \addcontentsline{toc}{chapter}{General Introduction}
 #+LATEX: \begin{refsection}
 
 
@@ -207,7 +206,8 @@ Together, the chapters demonstrate two complementary approaches to enhancing int
 #+LATEX:\end{spacing}
 
 
-* Associated Publications
+#+LATEX: \clearpage
+** Associated Publications
   :PROPERTIES:
   :UNNUMBERED: t
   :END:
@@ -218,20 +218,25 @@ Together, the chapters demonstrate two complementary approaches to enhancing int
 The following publications were completed during the doctoral period.
 My contributions are described using the CRediT taxonomy.
 
-** First-Authored Publications
+
+*** First-Authored Publications
+
+#+LATEX:\begin{spacing}{1.25}
 - Pegler, D., Jäkel, F., Steyrl, D., Scharnowski, F., & Melinscak,
  F. (2026). Unpacking interpretability: Human-centered criteria for
  optimal combinatorial solutions. /Under review at Computers in Human Behavior Reports./ https://doi.org/10.48550/arXiv.2603.08856. (Chapter [[#ch-packing]])
 - Pegler, D., Steyrl, D., Zhang, M., Karner, A., Arato, J.,
   Scharnowski, F., & Melinscak, F. (2025). SpiderNets: Vision models predict human fear from aversive images. /Under review at Computers in Human Behavior Reports/. https://doi.org/10.48550/arXiv.2509.04889. (Chapter [[#ch-cv]])
+#+LATEX:\end{spacing}
 
 
 
-** Co-Authored Publications
+*** Co-Authored Publications
 :PROPERTIES:
 :UNNUMBERED: t
 :END:
 
+#+LATEX:\begin{spacing}{1.25}
 - Buchanan, E. M., Cuccolo, K., Heyman, T., van Berkel, N., Coles,
   N. A., Iyer, A., Peters, K., … Pegler, D., … Lewis, S. C. (2025). Measuring the semantic
   priming effect across many languages. /Nature Human Behaviour/, (2025),
@@ -247,6 +252,7 @@ My contributions are described using the CRediT taxonomy.
   F. (2024). Visual attributes of spiders associated with
   aversiveness in spider-fearful individuals: A machine learning
   analysis. /Under review/. https://doi.org/10.31234/osf.io/ht2pr. My contribution: Methodology, Writing -- Review & Editing. Relevance: Provided the categories for the image dataset used in Chapter [[#ch-cv]].
+#+LATEX:\end{spacing}
 
 
 * Interpretability of Combinatorial Packing Solutions
@@ -1123,10 +1129,10 @@ This research was funded by the Austrian Research Promotion Agency (FFG), Projec
 * General Discussion
   :PROPERTIES:
   :CUSTOM_ID: general-discussion
-  :UNNUMBERED: f
+  :UNNUMBERED: nil
   :END:
 
-#+LATEX: \addcontentsline{toc}{chapter}{General Discussion}
+# #+LATEX: \addcontentsline{toc}{chapter}{General Discussion}
 #+LATEX: \begin{refsection}
 
 # should be roughly 10 pages
