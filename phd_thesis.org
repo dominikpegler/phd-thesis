@@ -73,7 +73,7 @@ Together, the findings link psychological theory to AI practice and yield concis
 * General Introduction
   :PROPERTIES:
   :CUSTOM_ID: general-introduction
-  :UNNUMBERED: t
+  :UNNUMBERED: f
   :END:
 
 
@@ -190,7 +190,7 @@ Addressing these questions, this thesis makes five contributions:
 - Quantitative validation of post-hoc visual attributions against manual spider-region annotations, providing evidence that predictions are anchored in task-relevant cues (Chapter [[#ch-cv]]).
 - A set of design principles for interpretable AI outputs: select and present outputs that align with familiar structure where equivalent alternatives exist (Chapter [[#ch-packing]]); validate that opaque models rely on task-relevant cues rather than incidental correlations (Chapter [[#ch-cv]]); evaluate under strong generalization tests (both chapters, via different methods); and report performance relative to human-agreement ceilings (both chapters).
 
-Chapter [[#ch-packing]] addresses RQ1 through an exploratory and a preregistered confirmatory experiment in which participants compared pairs of optimal packing solutions side by side. It reports preference, response-time, and gaze findings and relates them to predefined structural metrics of solution complexity. Chapter [[#ch-cv]] addresses RQ2 by fine-tuning four pretrained vision architectures on a dataset of spider images rated for fear, evaluating generalization with nested cross-validation, and combining performance assessment with explanation analyses and systematic error characterization. The General Discussion synthesizes the two lines of evidence, reflects on shared limitations, and proposes directions for interpretability-aware optimization, personalized clinical deployment, and broader domain generalization.
+Chapter [[#ch-packing]] addresses RQ1 through an exploratory and a preregistered confirmatory experiment in which participants compared pairs of optimal packing solutions side by side. It reports preference, response-time, and gaze findings and relates them to predefined structural metrics of solution complexity. Chapter [[#ch-cv]] addresses RQ2 by fine-tuning four pretrained vision architectures on a dataset of spider images rated for fear, evaluating generalization with nested cross-validation, and combining performance assessment with explanation analyses and systematic error characterization. The [[#general-discussion][General Discussion]] synthesizes the two lines of evidence, reflects on shared limitations, and proposes directions for interpretability-aware optimization, personalized clinical deployment, and broader domain generalization.
 
 Together, the chapters demonstrate two complementary approaches to enhancing interpretability -- selecting outputs that align with familiar cognitive patterns, and verifying that opaque models rely on task-relevant cues -- each grounded in its respective domain, with implications for trust and safe deployment.
 
@@ -1122,7 +1122,8 @@ This research was funded by the Austrian Research Promotion Agency (FFG), Projec
 
 * General Discussion
   :PROPERTIES:
-  :UNNUMBERED: t
+  :CUSTOM_ID: general-discussion
+  :UNNUMBERED: f
   :END:
 
 #+LATEX: \addcontentsline{toc}{chapter}{General Discussion}
