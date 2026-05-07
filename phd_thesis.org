@@ -34,6 +34,7 @@ Here is a breakdown of which tense to use for each section:
 
 Even though the methods and results sections are typically written in past tense in the main body of the paper, the abstract should generally be written in present tense, including the methods and results sections. This is because the abstract is a concise summary of the entire paper and is intended to provide readers with an overview of the study's purpose, methods, and results, as well as its implications and conclusions. Writing the abstract in present tense helps to convey that the study's findings and conclusions are current and relevant.
 
+
 * Acknowledgments
   :PROPERTIES:
   :UNNUMBERED: t
@@ -41,10 +42,10 @@ Even though the methods and results sections are typically written in past tense
 
 # Thank you to my advisors, colleagues, friends, and family who supported this work.
 
-I would like to thank everyone who helped me bring this project to a successful conclusion over the past three years: Alex, Annika, Cindy, Daniel, David, Filip, Frank, Kathrin, and Mengfan. Thank you for being there. Thank you, Lilla.
+I would like to thank everyone who helped me bring this project to a successful conclusion over the past three years: Alex, Annika, Cindy, Daniel, David, Filip, Frank, Kathrin, Mauricio and Mengfan. Thank you for being there. Thank you, Lilla.
 
 #+begin_comment
-Lange Zeit hatte ich den Glauben, dass alles im Leben alleine schaffbar sein muss, ohne fremde Hilfe. Und dass fremde Hilfe oft nur ein lästiger, unkontrollierbarer Störfaktor ist. Diese paar Jahre in der Wissenschaft haben mir hier die Augen geöffnet und eine Glaubenskorrektur ermöglicht. Deshalb möchte ich mich an dieser Stelle bei einigen wichtigen Begleitern bedanken: bei Filip, weil er mich speziell in den ersten Phasen des Doktorats mit den nötigen Werkzeugen ausgestattet hat, mir Vertrauen und Argumente gegeben hat, wenn ich vom eingeschlagenen Weg nicht überzeugt war, und mir beigebracht hat, dass es nichts gibt, das nicht hinterfragenswert ist; bei Frank, weil er 
+Lange Zeit hatte ich den Glauben, dass alles im Leben alleine schaffbar sein muss, ohne fremde Hilfe. Und dass fremde Hilfe oft nur ein lästiger, unkontrollierbarer Störfaktor ist. Diese paar Jahre in der Wissenschaft haben mir hier die Augen geöffnet und eine Korrektur ermöglicht. Deshalb möchte ich mich an dieser Stelle bei einigen wichtigen Begleitern bedanken: bei Filip, weil er mich speziell in den ersten Phasen des Doktorats mit den nötigen Werkzeugen ausgestattet hat, mir Vertrauen und Argumente gegeben hat, wenn ich vom eingeschlagenen Weg nicht überzeugt war, und mir beigebracht hat, dass es nichts gibt, das nicht hinterfragenswert ist; bei Frank, weil er ... 
 #+end_comment
 
 # #+LATEX:{\vspace*{\fill}\begin{center}{\fontsize{10cm}{1cm}\selectfont \bfseries{Ty!}}\end{center}\vspace*{\fill}}
@@ -192,7 +193,7 @@ Addressing these questions, this thesis makes five contributions:
 
 Chapter [[#ch-packing]] addresses RQ1 through an exploratory and a preregistered confirmatory experiment in which participants compared pairs of optimal packing solutions side by side. It reports preference, response-time, and gaze findings and relates them to predefined structural metrics of solution complexity. Chapter [[#ch-cv]] addresses RQ2 by fine-tuning four pretrained vision architectures on a dataset of spider images rated for fear, evaluating generalization with nested cross-validation, and combining performance assessment with explanation analyses and systematic error characterization. The [[#general-discussion][General Discussion]] synthesizes the two lines of evidence, reflects on shared limitations, and proposes directions for interpretability-aware optimization, personalized clinical deployment, and broader domain generalization.
 
-Together, the chapters demonstrate two complementary approaches to enhancing interpretability -- selecting outputs that align with familiar cognitive patterns, and verifying that opaque models rely on task-relevant cues -- each grounded in its respective domain, with implications for trust and safe deployment.
+Together, the chapters represent two complementary approaches to enhancing interpretability -- selecting outputs that align with familiar cognitive patterns, and verifying that opaque models rely on task-relevant cues -- each grounded in its respective domain, with implications for trust and safe deployment.
 
 
 ** References                                                        :ignore:
@@ -1160,9 +1161,9 @@ Neither study captured interpretability in its full, task-embedded sense. In the
 
 Both studies recruited general-population participants rather than the domain experts who would ultimately use such systems. Expert users bring different cognitive strategies, domain knowledge, and accountability pressures, all of which may reshape what counts as interpretable [cite/p:@foxExplainablePlanning2017; @bussoneRoleExplanationsTrust2015]. Relatedly, both studies traded ecological validity for experimental control: outputs were evaluated without time pressure, real consequences, or the need to act on them. Under realistic deployment conditions, the relationship between the properties studied here and actual usability may differ substantially [cite/p:@leeTrustAutomationDesigning2004; @dietvorstAlgorithmAversionPeople2015].
 
-Furthermore, the attribution analyses in the vision study relied exclusively on Grad-CAM, which, like all post-hoc attribution methods, provides an approximation of the model's decision process rather than a guaranteed faithful account of it [cite/p:@adebayoSanityChecksSaliency2020;@jacoviFaithfullyInterpretableNLP2020]. The consistent concentration of Grad-CAM activations within spider regions makes it unlikely that this alignment is coincidental. However, it remains possible in principle that the model's true computation relied on features not captured by the attribution method. Future work could triangulate across multiple attribution approaches, such as integrated gradients, occlusion, or SHAP, and assess their mutual agreement as a stronger check on explanation reliability.
+Furthermore, the attribution analyses in the vision study relied exclusively on Grad-CAM, which, like all post-hoc attribution methods, provides an approximation of the model's decision process rather than a guaranteed faithful account of it [cite/p:@adebayoSanityChecksSaliency2020;@jacoviFaithfullyInterpretableNLP2020]. The consistent concentration of Grad-CAM activations within spider regions makes it unlikely that this alignment is coincidental. However, it remains possible in principle that the model's true computation relied on features not captured by the attribution method. Future work could triangulate across multiple attribution approaches and assess their mutual agreement as a stronger check on explanation reliability.
 
-Finally, the finding that people prefer structurally simpler solutions among equally optimal alternatives raises a question that this thesis did not address: what happens when interpretability and optimality conflict? One approach is to embed interpretability as a secondary objective in multi-objective optimization [cite/p:@ehrgottMulticriteriaOptimization2005]. This would allow researchers to characterize the trade-off empirically and to determine how much solution quality users are willing to sacrifice for a more legible plan.
+Finally, the finding that people prefer structurally simpler solutions among equally optimal alternatives raises a question that this thesis did not address: what happens when interpretability and optimality conflict? One approach is to embed interpretability as a secondary objective in multi-objective optimization [cite/p:@ehrgottMulticriteriaOptimization2005]. This would allow researchers to characterize the trade-off empirically and to determine how much solution quality users are willing to sacrifice for higher interpretability.
 
 ** Broader context
 
