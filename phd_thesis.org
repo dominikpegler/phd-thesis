@@ -8,7 +8,7 @@
 #+PUBLISH_DIR:phd_thesis
 #+setupfile: setupfile_book.org
 #+AUTHOR: Dominik Pegler
-#+DATE: May 2026
+#+DATE: July 2026
 
 # needed for inline values
 #+BIND: org-babel-inline-result-wrap "%s"
@@ -58,11 +58,14 @@ Lange Zeit hatte ich den Glauben, dass alles im Leben alleine schaffbar sein mus
  
 #+LATEX: \addcontentsline{toc}{chapter}{Abstract}
 
+#+LATEX: \lettrine[lines=3, lhang=0.1, nindent=0.5em]{T}{he usefulness of artificial intelligence (AI) systems cannot be inferred}
+from correctness alone. Even technically accurate outputs may fail in practice when users cannot understand them, justify them, or determine whether they can be safely acted upon. This dissertation examines interpretability as a context-dependent requirement for human--AI collaboration in two domains: algorithmic decision support for allocation and planning problems, and AI-based image analysis for digital mental health.
 
-#+LATEX: \lettrine[lines=3, lhang=0.1, nindent=0.5em]{A}{rtificial intelligence (AI) systems can be right and still be useless. They}
-can produce technically correct outputs that no one can read, justify, or safely act on. This dissertation examines interpretability as a context-dependent requirement for human--AI collaboration in two domains: combinatorial decision support and affective vision for digital mental health. Chapter [[#ch-packing]] investigates how the structure of AI-generated outputs shapes human judgments of interpretability. Chapter [[#ch-cv]] asks whether post-hoc explanations of model predictions can be verified against task-relevant cues. Together, the two chapters show that interpretability is not a single property but depends on the task, the output, and the user. Chapter [[#ch-packing]] investigates interpretability among equally optimal solutions to a combinatorial packing problem. In a forced-choice paradigm, participants consistently preferred solutions that aligned with a simple heuristic, exhibited simpler compositions, and followed an ordered, rule-like layout. Increased heuristic alignment selectively accelerated decisions. These results identify three quantifiable structural criteria that make machine-generated solutions easier for humans to understand. Chapter [[#ch-cv]] evaluates pretrained vision models that predict group-level fear from spider images, with potential application in computerized exposure therapy. Convolutional and transformer architectures, fine-tuned and evaluated under strict out-of-sample conditions, generalized to new raters and new images. The best single model achieved a mean absolute error of approximately 10 units on the 0--100 fear scale. Grad-CAM attribution analyses indicated that model attributions concentrated on spider-salient image regions; this result is consistent with the interpretation that predictions are anchored in clinically relevant cues. Fitted learning curves clarified data requirements and a systematic error analysis revealed where generalization is most fragile. Together, the findings connect psychological theory to AI practice and yield design principles: select and present outputs that align with familiar structure where equivalent alternatives exist; validate that black box models rely on task-relevant cues rather than incidental correlations; and evaluate under strict generalization tests.
+The first study investigates what makes one algorithmic solution easier to understand than another when multiple solutions are equally optimal. In a forced-choice paradigm, participants compared pairs of equally optimal packing solutions and judged which was easier to understand. Preferences were systematically predicted by three structural properties of the solutions: alignment with a simple heuristic, compositional simplicity, and ordered, rule-like layout. Greater heuristic alignment selectively accelerated decisions. These findings identify quantifiable structural criteria that make machine-generated plans easier for humans to understand and justify.
 
+The second study evaluates pretrained vision models that predict group-level fear from spider images, with potential application in computerized exposure therapy. Convolutional and transformer architectures, fine-tuned and evaluated under strict out-of-sample conditions, generalized to new raters and new images. The best single model achieved a mean absolute error of approximately 10 units on the 0--100 fear scale. Grad-CAM attribution analyses showed that model attention concentrated on spider-relevant image regions, providing evidence consistent with predictions being anchored in clinically relevant cues rather than incidental correlations. Fitted learning curves clarified data requirements, and a systematic error analysis revealed conditions under which predictions are most fragile -- particularly at extreme fear levels and for visually complex or unusual images.
 
+Together, the findings show that interpretability depends on the task, the output, and the user. For structured decision-support problems, interpretability can be enhanced by selecting outputs whose structure aligns with familiar cognitive patterns. For opaque prediction models, interpretability requires validated evidence that predictions are based on task-relevant information. The central conclusion is that AI systems should be evaluated not only by whether they are correct, but also by whether humans can understand, verify, and responsibly act on their outputs.
 
 
 * Contents                                                           :ignore:
@@ -123,7 +126,177 @@ This distinction maps directly onto the two studies in this thesis. The packing 
 
 ** Two routes to interpretability: output structure vs. validated explanations
 
-The two studies in this thesis work with fundamentally different classes of AI systems, and the contrast explains why the two chapters take different methodological routes to the same goal. The packing study focuses on combinatorial solvers, the integer and constraint programs used in packing, scheduling, and resource allocation. They explore a search tree and return assignments that are provably optimal with respect to a stated objective [cite/p:@kellererKnapsackProblems2004; @cacchianiKnapsackProblemsOverview2022]. Crucially, many instances admit multiple distinct optima that differ markedly in structure, and because the solver's reasoning is a search process rather than a parametric model, there are no weights or gradients to inspect after the fact. Interpretability must therefore be supported by the structure of the generated solution itself, rather than by post-hoc inspection of the solver’s internal reasoning.
+
+#+begin_src latex
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    >=stealth,
+    font=\sffamily\small,
+    box/.style={draw, rounded corners=3pt, minimum height=1.2cm, minimum width=2.2cm, align=center, line width=0.6pt},
+    smallbox/.style={draw, rounded corners=2pt, minimum height=0.8cm, minimum width=1.6cm, align=center, line width=0.6pt},
+    label/.style={font=\sffamily\footnotesize, align=center, text width=5.5cm},
+    paneltitle/.style={font=\sffamily\bfseries\normalsize, align=center},
+    question/.style={font=\sffamily\small\itshape, align=center, text width=5.5cm},
+  ]
+
+  % ── coordinates ──
+  \def\panelwidth{7.0}
+  \def\gap{1.0}
+  \def\leftcenter{0}
+  \def\rightcenter{\panelwidth + \gap}
+
+  % ══════════════════════════════════════════════
+  % Panel A - Output Structure
+  % ══════════════════════════════════════════════
+
+  % panel frame
+  \draw[rounded corners=6pt, draw=black!30, line width=0.8pt, fill=blue!2]
+    ({\leftcenter - \panelwidth/2}, -7.4)
+    rectangle
+    ({\leftcenter + \panelwidth/2}, 1.2);
+
+  % title
+  \node[paneltitle] at (\leftcenter, 0.7) {(a)~Interpretability through};
+  \node[paneltitle] at (\leftcenter, 0.2) {output structure};
+
+  % ── two packing solutions ──
+
+  % --- Left (messy) packing grid ---
+  \begin{scope}[shift={({\leftcenter - 1.7}, -2.7)}]
+    \node[font=\sffamily\footnotesize\bfseries, anchor=south] at (1.0, 2.25) {Disordered};
+    % grid outline
+    \draw[line width=0.4pt, black!40] (0,0) grid[step=0.5] (2.0, 2.0);
+    \draw[line width=0.6pt, black!60] (0,0) rectangle (2.0, 2.0);
+    % scattered dots (assignments) — deliberately messy
+    \fill[blue!50!black] (0.25, 1.75) circle (3pt);
+    \fill[blue!50!black] (1.75, 1.25) circle (3pt);
+    \fill[blue!50!black] (0.75, 0.75) circle (3pt);
+    \fill[blue!50!black] (1.25, 0.25) circle (3pt);
+    \fill[blue!50!black] (1.75, 0.75) circle (3pt);
+    \fill[blue!50!black] (0.25, 0.25) circle (3pt);
+    % score
+    \node[font=\sffamily\tiny, black!60] at (1.0, -0.25) {Score: 85};
+    % cross
+    \node[font=\bfseries\large, red!70!black] at (1.0, -0.7) {\texttimes};
+  \end{scope}
+
+  % --- Right (ordered) packing grid ---
+  \begin{scope}[shift={({\leftcenter + 0.5}, -2.7)}]
+    \node[font=\sffamily\footnotesize\bfseries, anchor=south] at (1.0, 2.25) {Ordered};
+    % grid
+    \draw[line width=0.4pt, black!40] (0,0) grid[step=0.5] (2.0, 2.0);
+    \draw[line width=0.6pt, black!60] (0,0) rectangle (2.0, 2.0);
+    % near-diagonal assignments — clean pattern
+    \fill[blue!60!teal] (0.25, 1.75) circle (3pt);
+    \fill[blue!60!teal] (0.75, 1.25) circle (3pt);
+    \fill[blue!60!teal] (1.25, 0.75) circle (3pt);
+    \fill[blue!60!teal] (1.75, 0.25) circle (3pt);
+    \fill[blue!60!teal] (0.25, 1.25) circle (3pt);
+    \fill[blue!60!teal] (0.75, 0.75) circle (3pt);
+    % score
+    \node[font=\sffamily\tiny, black!60] at (1.0, -0.25) {Score: 85};
+    % checkmark
+    \node[font=\bfseries\large, green!50!black] at (1.0, -0.7) {\checkmark};
+  \end{scope}
+
+  % equal sign between them
+  \node[font=\sffamily\large, black!50] at (\leftcenter, -1.95) {=};
+
+  % annotation
+  \node[label] at (\leftcenter, -4.7) {Same optimality score,\\different structure};
+
+  % question
+  \node[question, blue!50!black] at (\leftcenter, -5.8)
+    {``Which solution is easier\\to understand?''};
+
+  % study reference
+  \node[font=\sffamily\scriptsize, black!40] at (\leftcenter, -6.9) {Packing Study (Chapter~2)};
+
+
+  % ══════════════════════════════════════════════
+  % Panel B - Validated Explanations
+  % ══════════════════════════════════════════════
+
+  % panel frame
+  \draw[rounded corners=6pt, draw=black!30, line width=0.8pt, fill=orange!2]
+    ({\rightcenter - \panelwidth/2}, -7.4)
+    rectangle
+    ({\rightcenter + \panelwidth/2}, 1.2);
+
+  % title
+  \node[paneltitle] at (\rightcenter, 0.7) {(b)~Interpretability through};
+  \node[paneltitle] at (\rightcenter, 0.2) {validated explanations};
+
+  % ── pipeline: image -> model -> prediction ──
+
+  % image placeholder
+  \node[smallbox, fill=black!8] (img) at ({\rightcenter - 2.0}, -1.2) {Image\\[-2pt]{\tiny\itshape (stimulus)}};
+
+  % model
+  \node[smallbox, fill=black!12] (model) at (\rightcenter, -1.2) {Vision\\[-2pt]Model};
+
+  % prediction
+  \node[smallbox, fill=orange!15, text=orange!40!black] (pred)
+    at ({\rightcenter + 2.0}, -1.2) {Score: 72};
+
+  % arrows
+  \draw[->, thick, black!50, line width=0.8pt] (img) -- (model);
+  \draw[->, thick, black!50, line width=0.8pt] (model) -- (pred);
+
+  % ── Grad-CAM heatmap ──
+
+  % heatmap placeholder (stylized)
+  \begin{scope}[shift={({\rightcenter - 0.9}, -3.8)}]
+    % background
+    \fill[black!8, rounded corners=2pt] (0, 0) rectangle (1.8, 1.8);
+    % "heatmap" blobs — warm colors in center (task-relevant region)
+    \fill[red!40, opacity=0.6] (0.9, 0.9) circle (0.55);
+    \fill[red!60, opacity=0.5] (0.9, 0.9) circle (0.35);
+    \fill[yellow!60, opacity=0.3] (0.9, 0.9) circle (0.75);
+    % cool edges
+    \fill[blue!15, opacity=0.3] (0.2, 0.2) circle (0.3);
+    \fill[blue!15, opacity=0.3] (1.6, 1.6) circle (0.3);
+    \fill[blue!15, opacity=0.3] (0.2, 1.6) circle (0.3);
+    \fill[blue!15, opacity=0.3] (1.6, 0.2) circle (0.3);
+    % border
+    \draw[rounded corners=2pt, line width=0.5pt, black!30] (0,0) rectangle (1.8, 1.8);
+    % label
+    \node[font=\sffamily\tiny, black!60, anchor=north] at (0.9, -0.1) {Model attention within the image};
+  \end{scope}
+
+  % arrow from model down to heatmap
+  \draw[->, thick, black!40, line width=0.7pt, dashed]
+    (model.south) -- ({\rightcenter}, -2.75)
+    node[midway, right, font=\sffamily\tiny, black!50, xshift=2pt] {};
+    
+  % question
+  \node[question, orange!50!black] at (\rightcenter, -5.8)
+    {``Does the model attend\\to the right cues?''};
+
+  % study reference
+  \node[font=\sffamily\scriptsize, black!40] at (\rightcenter, -6.9) {Fear-Prediction Study (Chapter~3)};
+
+
+  % ══════════════════════════════════════════════
+  % Bottom banner
+  % ══════════════════════════════════════════════
+
+  \node[font=\sffamily\normalsize, align=center, text=black!70]
+    at ({(\leftcenter + \rightcenter)/2}, -8.3)
+    {\textit{Interpretability depends on the task, the output, and the user.}};
+
+\end{tikzpicture}
+
+\caption{Two routes to interpretability studied in this thesis. 
+\textbf{(a)}~When multiple solutions are equally optimal, interpretability can be achieved through the structure of the output itself: users prefer solutions whose layout is ordered and whose construction follows a familiar pattern.
+\textbf{(b)}~When a model's internal process is opaque, interpretability requires post-hoc explanations (here, Grad-CAM attribution maps) that can be validated against task-relevant image content.
+Both routes serve the same functional goal: enabling a human user to understand, verify, and responsibly act on an AI-generated output.}
+\label{fig:two-routes}
+\end{figure}
+#+end_src
+
+The two studies in this thesis work with fundamentally different classes of AI systems, and the contrast explains why the two chapters take different methodological routes to the same goal. The packing study focuses on combinatorial solvers, the integer and constraint programs used in packing, scheduling, and resource allocation. They explore a search tree and return assignments that are provably optimal with respect to a stated objective [cite/p:@kellererKnapsackProblems2004; @cacchianiKnapsackProblemsOverview2022]. Crucially, many instances admit multiple distinct optima that differ markedly in structure, and because the solver's reasoning is a search process rather than a parametric model, there are no weights or gradients to inspect after the fact. Interpretability must therefore be supported by the structure of the generated solution itself, rather than by post-hoc inspection of the solver’s internal reasoning. Figure ref:fig:two-routes illustrates these two routes schematically.
 
 The fear-prediction study focuses on deep neural networks for visual perception, including convolutional [cite/p:@lecunDeepLearning2015] and transformer-based [cite/p:@dosovitskiyImageWorth16x162021] models. They occupy the opposite position and learn hierarchical feature representations from large image corpora [cite/p:@yosinskiHowTransferableAre2014] to produce a single prediction per input. Their millions of learned parameters make the process that produced the prediction opaque. A necessary precondition for interpretability is therefore that post-hoc explanation methods be independently validated for faithfulness [cite/p:@barredoarrietaExplainableArtificialIntelligence2020; @jacoviFaithfullyInterpretableNLP2020; @adebayoSanityChecksSaliency2020]. In short, combinatorial solvers are process-transparent but output-variable, and the challenge is to select optima whose structure aligns with human cognition; deep networks are output-fixed but process-opaque, and the challenge is to make the reasoning behind a prediction visible and verifiable. This distinction is not unique to the domains studied here; it arises whenever AI systems produce either structured plans or continuous predictions for human use.
 
@@ -159,18 +332,18 @@ Chapter [[#ch-packing]] addresses this gap by connecting three predefined struct
 - 5: Describes the immediate clinical risks of low interpretability and previews how Chapter 2 addresses the identified gaps.
 #+end_comment
 
-Clinical applications place particularly strong demands on the interpretability of AI systems because decisions affect patient welfare directly and because the practitioner bears personal responsibility for the outcome [cite/p:@euEthicsGuidelinesTrustworthy2019]. Among clinical domains, exposure-based treatment of specific phobias offers a well-defined setting. The clinical workflow centers on a fear hierarchy, a graded sequence of stimuli ordered by expected distress [cite/p:@craskeMaximizingExposureTherapy2014; @choyTreatmentSpecificPhobia2007]. Specific phobias are highly prevalent and exposure therapy is the most effective treatment, but conventional delivery is resource-intensive and limited in scalability [cite/p:@choyTreatmentSpecificPhobia2007; @daveyPsychopathologyTreatmentSpecific2007]. Digital variants promise broader reach, and recent trials demonstrate durable improvements [cite/p:@miloffAutomatedVirtualReality2019; @lindnerGamifiedAutomatedVirtual2020]. When this workflow is digitized, stimulus selection must be automated, and the clinician's role shifts from choosing stimuli manually to supervising a model's estimates of how fear-evoking each image is [cite/p:@leeTrustAutomationDesigning2004; @huysComputationalPsychiatryBridge2016]. Effective supervision requires knowing what the model is responding to.
+Clinical applications place particularly strong demands on the interpretability of AI systems because decisions affect patient welfare directly and because the practitioner bears personal responsibility for the outcome [cite/p:@euEthicsGuidelinesTrustworthy2019]. The extent to which clinical interventions can be supported by automation varies considerably; highly procedural, protocol-driven therapies are more amenable to algorithmic support than unstructured clinical encounters. Exposure-based treatment of specific phobias is a prime example. The clinical workflow centers on a fear hierarchy, a graded sequence of stimuli ordered by expected distress [cite/p:@craskeMaximizingExposureTherapy2014; @choyTreatmentSpecificPhobia2007]. Specific phobias are highly prevalent and exposure therapy is the most effective treatment, but conventional delivery is resource-intensive and limited in scalability [cite/p:@choyTreatmentSpecificPhobia2007; @daveyPsychopathologyTreatmentSpecific2007]. This structured, stepwise format has already motivated several attempts at computerized and virtual-reality-based delivery; recent trials demonstrate durable improvements [cite/p:@miloffAutomatedVirtualReality2019; @lindnerGamifiedAutomatedVirtual2020]. When this workflow is digitized, stimulus selection must be automated, and the clinician's role shifts from choosing stimuli manually to supervising a model's estimates of how fear-evoking each image is [cite/p:@leeTrustAutomationDesigning2004; @huysComputationalPsychiatryBridge2016]. Effective supervision requires knowing what the model is responding to.
 
 Phobia-specific fear prediction is especially informative for studying interpretability in this context. The ground truth is behaviorally anchored: fear ratings come from spider-fearful individuals responding to stimuli directly relevant to their condition [cite/p:@karnerSpiDaDatasetSelfreport2024]. And the deployment scenario creates a concrete verification need: because the model's output feeds into a therapeutic sequence, a clinician must be able to verify that the prediction is based on spider-relevant cues rather than incidental correlations. General affective image analysis is well established [cite/p:@kragelEmotionSchemasAre2019; @kimBuildingEmotionalMachines2018; @conwellPerceptualPrimacyFeeling2025], but the step from broad affect prediction to clinically grounded, explanation-validated fear prediction has not yet been fully taken.
 
-Three specific gaps limit the current state: most computational affect studies target broad affective dimensions rather than disorder-specific fear; evaluation typically relies on within-sample splits rather than strict out-of-sample generalization to new raters /and/ new images; and saliency-based explanations are presented as qualitative illustrations rather than quantitatively validated against task-relevant annotations [cite/p:@adebayoSanityChecksSaliency2020; @jacoviFaithfullyInterpretableNLP2020]. Without such validation, a model may achieve low error while relying on features with no clinical meaning, and post-hoc explanations may appear credible while misrepresenting the model's actual decision process. In clinical deployment, this matters directly: if a clinician cannot inspect what the model is reacting to, stimulus intensity may be miscalibrated, leading to exposures that are either therapeutically ineffective or overwhelming [cite/p:@craskeMaximizingExposureTherapy2014]. Chapter [[#ch-cv]] addresses these gaps by evaluating pretrained vision models under strict out-of-sample conditions and validating whether their predictions are grounded in task-relevant visual cues.
+
+Three specific gaps limit the current state. First, most computational affect studies target broad affective dimensions rather than disorder-specific fear. Second, evaluation protocols in most existing studies rely on within-sample data splits rather than testing whether predictions generalize simultaneously to new raters /and/ new images. For instance, holding out a random subset of images while allowing the same raters to appear in both training and test sets. This distinction matters because a model that has seen ratings from the same individuals during training may exploit rater-specific tendencies rather than learning generalizable image-level fear cues. Third, when saliency-based explanations such as heatmaps are provided, they are typically presented as qualitative illustrations (selected examples that appear plausible to the reader) rather than quantitatively validated against independent annotations of task-relevant image regions [cite/p:@adebayoSanityChecksSaliency2020; @jacoviFaithfullyInterpretableNLP2020]. Without such validation, a model may achieve high accuracy while relying on features with no clinical meaning, and post-hoc explanations may appear credible while misrepresenting the model's actual decision process. In clinical deployment, this matters directly: if a clinician cannot inspect what the model is reacting to, stimulus intensity may be miscalibrated, leading to exposures that are either therapeutically ineffective or overwhelming [cite/p:@craskeMaximizingExposureTherapy2014]. Chapter [[#ch-cv]] addresses these gaps by evaluating pretrained vision models under strict out-of-sample conditions and validating whether their predictions are grounded in task-relevant visual cues.
 
 
 ** Remaining questions and how both studies address them
 
 
-
-The preceding sections identified domain-specific gaps: in combinatorial decision support, a feature-based account connecting structural properties of optimal solutions to human interpretability judgments is missing; in affective vision, phobia-specific fear prediction with strict out-of-sample generalization and validated explanations remains limited. Chapter [[#ch-packing]] addresses the first gap by connecting measurable structural properties of optimal packing solutions to human preferences, decision speed, and attention in a controlled behavioral paradigm. Chapter [[#ch-cv]] addresses the second by evaluating pretrained vision models under strict out-of-sample conditions and validating whether their predictions are grounded in task-relevant visual cues. Both studies share a commitment to evaluation procedures that go beyond reporting aggregate fit [cite/p:@doshi-velezRigorousScienceInterpretable2017]: preregistered analyses in the packing study, nested cross-validation with dual-level data partitioning in the fear-prediction study [cite/p:@hastie01statisticallearning], and empirical ceiling estimates that contextualize what each model achieves relative to the reliability of the human data it attempts to predict [cite/p:@revellePsychProceduresPsychological2024]. These methodological choices are detailed in the respective chapters.
+The preceding sections identified two domain-specific gaps. In algorithmic decision support, no feature-based account connects structural properties of optimal solutions to human interpretability judgments. Chapter [[#ch-packing]] addresses this gap by connecting measurable structural properties of optimal packing solutions to human preferences, decision speed, and attention in a controlled behavioral paradigm. In affective vision for digital mental health, phobia-specific fear prediction with strict out-of-sample generalization and validated explanations remains limited. Chapter [[#ch-cv]] addresses this gap by evaluating pretrained vision models under strict out-of-sample conditions and validating whether their predictions are grounded in task-relevant visual cues.
 
 The rationale for studying both domains in a single thesis follows from the complementarity of their interpretability challenges. Showing that interpretability can be enhanced directly through output selection in one domain, and that a necessary precondition, explanation faithfulness, can be established in the other, provides a broader empirical basis for design recommendations than either study alone. The next section states the specific research questions and contributions that follow from these gaps and this rationale.
 
@@ -180,19 +353,25 @@ The gaps identified in the preceding sections motivate two primary research ques
 
 /RQ1./ Which structural properties of equally optimal combinatorial solutions predict human interpretability preferences, and do such preferences also manifest in decision speed and visual attention?
 
+Chapter [[#ch-packing]] addresses RQ1 through an exploratory and a preregistered confirmatory experiment in which participants compared pairs of optimal packing solutions side by side. It reports preference, response-time, and gaze findings and relates them to predefined structural metrics of solution complexity. This chapter contributes:
+
+- Three feature-based metrics (heuristic alignment, compositional simplicity, and visual order) that reliably predict human preferences among equally optimal packing solutions, evaluated with a forced-choice behavioral paradigm for precomputed combinatorial solutions.
+
 /RQ2./ Can pretrained vision models predict group-level fear ratings for phobia-relevant images with generalization to new raters and new images, and do their predictions rely on stimulus regions that are clinically meaningful rather than incidental?
 
-Addressing these questions, this thesis makes five contributions:
+Chapter [[#ch-cv]] addresses RQ2 by fine-tuning four pretrained vision architectures on a dataset of spider images rated for fear, evaluating generalization with nested cross-validation, and combining performance assessment with explanation analyses and systematic error characterization. This chapter contributes:
 
-- A forced-choice behavioral paradigm for evaluating the interpretability of precomputed combinatorial solutions, together with three feature-based metrics that reliably predict human preferences among equally optimal packing solutions (Chapter [[#ch-packing]]).
-- A publicly available dataset of pairwise preference judgments, response times, and webcam-based gaze recordings for optimal packing solutions (Chapter [[#ch-packing]]).
-- A transfer-learning pipeline that fine-tunes pretrained vision models to predict phobia-specific fear from spider images under strict out-of-sample evaluation (Chapter [[#ch-cv]]).
-- Quantitative validation of post-hoc visual attributions against manual spider-region annotations, providing evidence that predictions are anchored in task-relevant cues (Chapter [[#ch-cv]]).
-- A set of design principles for interpretable AI outputs: select and present outputs that align with familiar structure where equivalent alternatives exist (Chapter [[#ch-packing]]); validate that black box models rely on task-relevant cues rather than incidental correlations (Chapter [[#ch-cv]]); evaluate under strong generalization tests (both chapters, via different methods); and report performance relative to human-agreement ceilings (both chapters).
+- A transfer-learning pipeline that fine-tunes pretrained vision models to predict phobia-specific fear from spider images under strict out-of-sample evaluation.
+- Quantitative validation of post-hoc visual attributions against manual spider-region annotations, providing evidence that predictions are anchored in task-relevant cues.
 
-Chapter [[#ch-packing]] addresses RQ1 through an exploratory and a preregistered confirmatory experiment in which participants compared pairs of optimal packing solutions side by side. It reports preference, response-time, and gaze findings and relates them to predefined structural metrics of solution complexity. Chapter [[#ch-cv]] addresses RQ2 by fine-tuning four pretrained vision architectures on a dataset of spider images rated for fear, evaluating generalization with nested cross-validation, and combining performance assessment with explanation analyses and systematic error characterization. The [[#general-discussion][General Discussion]] synthesizes the two lines of evidence, reflects on shared limitations, and proposes directions for interpretability-aware optimization, personalized clinical deployment, and broader domain generalization.
+Across both chapters, the thesis contributes:
 
-Together, the chapters represent two complementary approaches to enhancing interpretability -- selecting outputs that align with familiar cognitive patterns, and verifying that black box models rely on task-relevant cues -- each grounded in its respective domain, with implications for trust and safe deployment.
+- A set of design principles for interpretable AI outputs: select and present outputs that align with familiar structure where equivalent alternatives exist (Chapter [[#ch-packing]]); validate that black-box models rely on task-relevant cues rather than incidental correlations (Chapter [[#ch-cv]]); evaluate under strong generalization tests (both chapters, via different methods); and report performance relative to human-agreement ceilings (both chapters).
+- Open research materials for both studies, including pairwise preference judgments, response times, and webcam-based gaze recordings (Chapter [[#ch-packing]]), as well as analysis code and model outputs (Chapter [[#ch-cv]]) publicly archived to support reproducibility (Chapter [[#ch-packing]]: https://osf.io/4wjgp/; Chapter [[#ch-cv]]: https://osf.io/8b5a2/).
+
+Both studies share a commitment to evaluation procedures that go beyond reporting aggregate fit [cite/p:@doshi-velezRigorousScienceInterpretable2017]: preregistered analyses in the packing study, nested cross-validation with dual-level data partitioning in the fear-prediction study [cite/p:@hastie01statisticallearning], and empirical ceiling estimates that contextualize what each model achieves relative to the reliability of the human data it attempts to predict [cite/p:@revellePsychProceduresPsychological2024]. These methodological choices are detailed in the respective chapters.
+
+The [[#general-discussion][General Discussion]] synthesizes the two lines of evidence, reflects on shared limitations, and proposes directions for interpretability-aware optimization, personalized clinical deployment, and broader domain generalization.
 
 
 ** References                                                        :ignore:
@@ -273,8 +452,8 @@ My contributions are described using the CRediT taxonomy.
 
 #+LATEX: \clearpage
 
-#+LATEX:\lettrine[lines=3, lhang=0.1, nindent=0.5em]{T}{wo solutions can score identically, yet one makes immediate sense and }
-the other looks like noise -- an artificial intelligence (AI) solver can prove a solution is optimal and still hand you something no human would voluntarily defend in a meeting. This chapter turns to combinatorial decision support as a concrete test case for that disconnect between formal optimality and human usability. Among equally optimal solutions, some are intuitively clear while others remain opaque, and this study introduces a behavioral paradigm in which people compare pairs of optimal packing solutions and relates their preferences, response times, and gaze patterns to predefined structural metrics of solution complexity. In doing so, the chapter provides a concrete, feature-based account of human-centered interpretability for combinatorial solutions and establishes design principles that later chapters generalize to other AI domains.
+#+LATEX:\lettrine[lines=3, lhang=0.1, nindent=0.5em]{F}{ormally equivalent machine-generated solutions can differ substantially}
+in how easily humans can understand and justify them. An artificial intelligence (AI) solver may certify multiple solutions as optimal, yet some outputs will be immediately legible while others lack any discernible structure that a user could explain or defend. This chapter turns to combinatorial decision support as a concrete test case for that disconnect between formal optimality and human usability. Among equally optimal solutions, some are intuitively clear while others remain opaque, and this study introduces a behavioral paradigm in which people compare pairs of optimal packing solutions and relate their preferences, response times, and gaze patterns to predefined structural metrics of solution complexity. In doing so, the chapter provides a concrete, feature-based account of human-centered interpretability for combinatorial solutions and establishes design principles that later chapters generalize to other AI domains.
 
 ** Abstract
 :PROPERTIES:
@@ -819,8 +998,8 @@ This research was funded by the Austrian Research Promotion Agency (FFG), Projec
 
 #+LATEX: \clearpage
 
-#+LATEX:\lettrine[lines=3, lhang=0.1, nindent=0.5em]{A}{~model that predicts fear accurately but for the wrong reasons is not a }
-clinical tool -- it is a confident guess dressed in a white coat. Extending the focus on human-centered interpretability from structured plans to visual perception, this chapter asks whether pretrained vision models that predict phobia-relevant fear generalize to new people and new stimuli, and whether their predictions are grounded in cues that clinicians can trust. This study fine-tunes convolutional and transformer architectures to predict group-level fear ratings for spider images and evaluates them under strict out-of-sample conditions, combining performance assessment with explanation analyses based on attribution maps and feature visualization. In doing so, the chapter demonstrates how validated post-hoc explanations can establish a necessary precondition for interpretable, clinically meaningful predictions -- that the model relies on task-relevant cues -- and contributes a second, complementary example of how the thesis operationalizes interpretability in human--AI collaboration.
+#+LATEX:\lettrine[lines=3, lhang=0.1, nindent=0.5em]{P}{redictive accuracy alone does not establish clinical utility. A model}
+whose predictions are grounded in incidental image features rather than clinically meaningful cues cannot be trusted to inform therapeutic decisions, regardless of its aggregate error rate. Extending the focus on human-centered interpretability from structured plans to visual perception, this chapter asks whether pretrained vision models that predict phobia-relevant fear generalize to new people and new stimuli, and whether their predictions are grounded in cues that clinicians can trust. This study fine-tunes convolutional and transformer architectures to predict group-level fear ratings for spider images and evaluates them under strict out-of-sample conditions that hold out both raters and images. Beyond predictive performance, two complementary explanation methods are used to assess what the models have learned. Attribution maps identify which image regions most influence each prediction, making it possible to test whether model attention concentrates on spider-relevant content. Feature visualization synthesizes artificial inputs that maximally activate the model's fear output, revealing the visual patterns the network associates with high predicted fear. Together, these methods provide converging evidence on whether predictions are grounded in task-relevant cues. In doing so, the chapter demonstrates how validated post-hoc explanations can establish a necessary precondition for interpretable, clinically meaningful predictions, that the model relies on task-relevant cues, and provides a complementary empirical contribution to the study of interpretability by showing how post-hoc explanations can be quantitatively validated against task-relevant evidence in a clinically meaningful prediction setting.
 
 ** Abstract
 :PROPERTIES:
@@ -1135,8 +1314,8 @@ This research was funded by the Austrian Research Promotion Agency (FFG), Projec
 # #+LATEX: \addcontentsline{toc}{chapter}{General Discussion}
 #+LATEX: \begin{refsection}
 
-#+LATEX:\lettrine[lines=3, lhang=0.1, nindent=0.5em]{B}{eing right is the easy part -- being right in a way that a human can verify, }
-challenge, and act on is where most artificial intelligence (AI) systems quietly fail. This thesis examined interpretability in two domains that have nothing in common except the same demand: that the person in the loop must actually understand the output. Combinatorial decision support and affective vision for digital mental health -- examined in the /packing study/ and the /spider‑fear prediction study/, respectively -- differ in their systems, outputs, and users, yet both exposed the same pattern: formal correctness, whether defined as optimality or predictive accuracy, did not by itself make outputs usable. This General Discussion synthesizes what the two studies found, considers their joint implications for interpretability, and discusses limitations, future directions, and broader context.
+#+LATEX:\lettrine[lines=3, lhang=0.1, nindent=0.5em]{T}{echnical correctness is a necessary but insufficient condition for the}
+practical usefulness of artificial intelligence (AI) systems. What distinguishes a usable AI output from a merely accurate one is whether a human can understand it well enough to verify its basis, identify its limitations, and take responsible action. This thesis examined interpretability in two domains that differ in their systems, outputs, and users but share a common requirement: that the person responsible for acting on the output must be able to understand it. Algorithmic decision support for allocation problems and affective vision for digital mental health (examined in the /packing study/ and the /spider-fear prediction study/, respectively) both exposed the same pattern: formal correctness, whether defined as optimality or predictive accuracy, is insufficient to establish practical interpretability or support responsible human use. This General Discussion synthesizes what the two studies found, considers their joint implications for interpretability, and discusses limitations, future directions, and broader context.
 
 ** Summary of findings
 
@@ -1144,35 +1323,44 @@ Chapter [[#ch-packing]] showed that, among equally optimal solutions to a combin
 
 ** Interpretability beyond correctness
 
-Across the two studies, one observation recurs: formal correctness, whether defined as optimality or as predictive accuracy, is necessary but not sufficient for human usability. In the packing study, all solutions were equally optimal, yet preferences were strong and systematic. In the fear-prediction study, accuracy was good, yet accuracy alone could not establish whether the model relied on meaningful cues. In both cases, something beyond being right was needed before a person could responsibly use the output: recognizable structure in one domain, evidence of explanatory grounding consistent with task-relevant cues in the other. Interpretability, then, is not reducible to performance. It requires that outputs be legible in terms the user already commands, whether through structure that matches familiar reasoning patterns [cite/p:@gigerenzerHeuristicDecisionMaking2011; @feldmanSimplicityPrinciplePerception2016] or through explanations that can be checked against domain knowledge [cite/p:@millerExplanationArtificialIntelligence2019; @jacoviFaithfullyInterpretableNLP2020].
+Across the two studies, one observation recurs: formal correctness, whether defined as optimality or as predictive accuracy, is necessary but not sufficient for human usability. In the packing study, all solutions were equally optimal, yet preferences were strong and systematic. In the fear-prediction study, accuracy was good, yet accuracy alone could not establish whether the model relied on meaningful cues. In both cases, additional requirements beyond formal correctness had to be met before a user could responsibly act on the output: recognizable structure in one domain, evidence of explanatory grounding consistent with task-relevant cues in the other. Interpretability, then, is not reducible to performance. It requires that outputs be legible in terms the user already possesses, whether through structure that matches familiar reasoning patterns [cite/p:@gigerenzerHeuristicDecisionMaking2011; @feldmanSimplicityPrinciplePerception2016] or through explanations that can be checked against domain knowledge [cite/p:@millerExplanationArtificialIntelligence2019; @jacoviFaithfullyInterpretableNLP2020].
 
-This shared insight should not obscure the fact that the two studies are deliberately heterogeneous. They address different output types and different user needs, and the strategy for achieving interpretability differs accordingly. The contribution of studying them together is not a unified theory but a demonstration that interpretability is context-depdendet: it depends on the task, the output format, and the user. The domain-specific implications are discussed in the respective chapters.
+The two studies show that interpretability must be operationalized differently depending on what the AI system produces. In the packing study, the relevant object is a complete structured solution: users can inspect the arrangement directly, so interpretability depends on whether the solution itself exhibits cognitively accessible structure: heuristic alignment, compositional simplicity, and visual order. In the spider-fear study, the relevant object is a scalar prediction from an opaque vision model: users cannot inspect the decision process directly, so interpretability depends on whether post-hoc attributions can be shown to correspond to task-relevant image regions. The comparison therefore identifies two distinct mechanisms for supporting human use: selecting among equivalent outputs when multiple correct solutions exist, and validating explanatory evidence when the model's internal basis is not directly observable. This distinction clarifies why interpretability cannot be evaluated by a single generic criterion but must be tied to the representational form of the output and to the decision the human user needs to make.
 
-** Limitations and future directions
-
-Several constraints qualify the conclusions and point to next steps.
+This distinction also has practical implications for two well-documented failure modes in human--AI collaboration. Interpretable output structure may reduce algorithm aversion, the tendency to reject valid algorithmic outputs that appear arbitrary [cite/p:@dietvorstAlgorithmAversionPeople2015], while validated explanations may reduce automation bias, the tendency to accept predictions uncritically when users cannot evaluate what they are based on [cite/p:@leeTrustAutomationDesigning2004; @bussoneRoleExplanationsTrust2015]. The two studies thus address complementary risks: unwarranted rejection of good solutions and unwarranted acceptance of flawed predictions.
+** Limitations
 
 Both studies used carefully controlled but narrow testbeds: small packing instances in one case, spider images with group-level fear ratings in the other. Whether the interpretability mechanisms identified here extend to larger or structurally different problems, other stimulus domains, or individual-level prediction remains open. The thesis demonstrates how interpretability can be studied and supported in two specific settings; it does not claim that the particular metrics or methods exhaust the space of relevant approaches. A natural next step for the packing study is to test whether the identified properties hold for larger instances and other combinatorial problem classes. For the fear-prediction study, the transition from group-level to individualized fear prediction is a prerequisite for clinical deployment, where the same stimulus can be mildly aversive for one patient and overwhelming for another [cite/p:@craskeMaximizingExposureTherapy2014]. This will require the combination of image features with patient-level covariates [cite/p:@raghuRapidLearningFeature2020] and, eventually, the extension to video and virtual-reality stimuli [cite/p:@tongVideoMAEMaskedAutoencoders2022].
 
-Neither study captured interpretability in its full, task-embedded sense. In the packing study, stated preferences may reflect familiarity or aesthetic appeal rather than genuine understanding. In the fear-prediction study, the demonstration that explanations are consistent with task-relevant cues establishes a precondition for interpretability but does not measure whether clinicians actually find the outputs useful. Both studies thus provide behavioral and computational /proxies/ for interpretability, not evidence that users can detect errors, edit outputs, or justify decisions based on what the system provides. Both studies would benefit from evaluation with domain experts who perform realistic tasks such as error detection, output editing, and decision justification. For clinical prediction specifically, the next step is to embed model outputs in therapeutic workflows and to test whether validated explanations and characterized error patterns change how clinicians calibrate their trust.
+Neither study captured interpretability in its full, task-embedded sense. In the packing study, stated preferences may reflect familiarity or aesthetic appeal rather than genuine understanding. In the fear-prediction study, the demonstration that explanations are consistent with task-relevant cues establishes a precondition for interpretability but does not assess whether clinicians actually find the outputs useful. Both studies thus provide behavioral and computational /proxies/ for interpretability, not evidence that users can detect errors, edit outputs, or justify decisions based on what the system provides. Both studies would benefit from evaluation with domain experts who perform realistic tasks such as error detection, output editing, and decision justification. For clinical prediction specifically, the next step is to embed model outputs in therapeutic workflows and to test whether validated explanations and characterized error patterns change how clinicians calibrate their trust.
 
 Both studies recruited general-population participants rather than the domain experts who would ultimately use such systems. Expert users bring different cognitive strategies, domain knowledge, and accountability pressures, all of which may reshape what counts as interpretable [cite/p:@foxExplainablePlanning2017; @bussoneRoleExplanationsTrust2015]. Relatedly, both studies traded ecological validity for experimental control: outputs were evaluated without time pressure, real consequences, or the need to act on them. Under realistic deployment conditions, the relationship between the properties studied here and actual usability may differ substantially [cite/p:@leeTrustAutomationDesigning2004; @dietvorstAlgorithmAversionPeople2015].
 
-Furthermore, the attribution analyses in the fear-prediction study relied exclusively on Grad-CAM, which, like all post-hoc attribution methods, provides an approximation of the model's decision process rather than a guaranteed faithful account of it [cite/p:@adebayoSanityChecksSaliency2020;@jacoviFaithfullyInterpretableNLP2020]. The consistent concentration of Grad-CAM activations within spider regions makes it unlikely that this alignment is coincidental. However, it remains possible in principle that the model's true computation relied on features not captured by the attribution method. Future work could triangulate across multiple attribution approaches and assess their mutual agreement as a stronger check on explanation reliability.
+More broadly, the interpretability claims in both studies are bounded by the specific assessment metrics employed. In the fear-prediction study, the attribution analyses relied exclusively on Grad-CAM, which, like all post-hoc attribution methods, provides an approximation of the model's decision process rather than a guaranteed faithful account of it [cite/p:@adebayoSanityChecksSaliency2020; @jacoviFaithfullyInterpretableNLP2020]. The consistent concentration of Grad-CAM activations within spider regions makes it unlikely that this alignment is coincidental; however, in principle, it remains possible that the model's true computation relied on features not captured by the attribution method. Future work could triangulate across multiple attribution approaches and assess their mutual agreement as a stronger check on explanation reliability. In the packing study, heuristic-related complexity was operationalized using a single greedy strategy (largest bin, largest item first), leaving open whether other human-plausible heuristics would yield different or stronger associations with interpretability preferences. Both studies thus demonstrate the value of grounding interpretability in measurable structural or explanatory properties, while also highlighting that the specific operationalizations chosen constrain the scope of the conclusions.
 
-Finally, the finding that people prefer structurally simpler solutions among equally optimal alternatives raises a question that this thesis did not address: what happens when interpretability and optimality conflict? One approach is to embed interpretability as a secondary objective in multi-objective optimization [cite/p:@ehrgottMulticriteriaOptimization2005]. This would allow researchers to characterize the trade-off empirically and to determine how much solution quality users are willing to sacrifice for higher interpretability.
+** Future directions
 
-** Broader context
+Beyond addressing these limitations, the findings open several directions for future research. One concerns the relationship between interpretability and optimality. The packing study demonstrated that people prefer structurally simpler solutions among equally optimal alternatives, but in many practical settings the most interpretable solution may not be the best-performing one. A natural next step is to treat interpretability as a legitimate secondary objective alongside traditional performance criteria: for instance, by embedding complexity metrics as tie-breakers among equal-value optima, as soft penalties in multi-objective formulations [cite/p:@ehrgottMulticriteriaOptimization2005], or by screening a shortlist of near-optimal solutions and presenting those that score highest on interpretability. Characterizing this trade-off empirically, how much solution quality users are willing to sacrifice for greater interpretability, and at what point additional interpretability ceases to yield practical benefits, would provide actionable guidance for system designers and establish interpretability as a first-class design objective rather than an afterthought. More generally, the existence of multiple equally valid outputs, sometimes termed predictive or solution multiplicity, can be reframed from a source of arbitrariness into an opportunity for selecting outputs with desirable secondary properties such as interpretability, fairness, or robustness.
 
-The interpretability challenges examined here are instances of a wider tension in contemporary AI. As models grow larger and more capable, the distance between system capability and human understanding of that capability grows as well. This applies not only to the constrained optimization and vision models studied in this thesis but also to large language models and multimodal foundation models [cite/p:@bommasaniOpportunitiesRisksFoundation2022]. Mechanistic approaches that reverse-engineer internal computations [cite/p:@olahZoomIntroductionCircuits2020; @conmyAutomatedCircuitDiscovery2023] offer one response, but they remain largely disconnected from the user-facing interpretability that this thesis addresses. Regulatory frameworks such as the EU AI Act [cite/p:@EU2024AIAct] increasingly require that high-risk systems be transparent to the humans who oversee them.
+A second direction concerns generalization beyond the specific domains studied here. For the fear-prediction study, the transition from group-level to individualized fear prediction is a prerequisite for clinical deployment, where the same stimulus can be mildly aversive for one patient and overwhelming for another [cite/p:@craskeMaximizingExposureTherapy2014]. This will require combining image features with patient-level covariates [cite/p:@raghuRapidLearningFeature2020] and, eventually, extending from static images to dynamic content in virtual-reality-based exposure, where moment-to-moment fear estimation could support real-time therapeutic adaptation [cite/p:@tongVideoMAEMaskedAutoencoders2022]. The same transfer-learning and explanation-validation framework could be applied to other specific phobias (e.g., heights, needles) given suitable domain-specific image corpora and rater protocols. For the packing study, a key question is whether the three structural metrics generalize to larger instances, to other combinatorial problem classes (e.g., scheduling, vehicle routing), and to settings with time pressure and real consequences. If the identified metrics prove robust across problem types, they could be integrated directly into solver pipelines as secondary optimization criteria. More broadly, the aspiration across both domains is to make interpretability a design-time concern rather than a post-hoc evaluation, to build systems that produce outputs humans can work with from the outset, rather than retrofitting explanations after deployment.
 
-Moreover, interpretability is not only an individual-level concern. This thesis studied settings in which a single user evaluates a single AI output: a planner judging a solution, a clinician checking a prediction. However, as AI models like language models (LM) increasingly mediate everyday communication, the question shifts from whether one person can understand one output to whether communities can discern how their shared information environment is being systematically reshaped [cite/p:@brinkmannMachineCulture2023; @souratiHomogenizingEffectLarge2026]. The core problem is the same: AI outputs that are not transparent to the people affected by them cannot be judged, challenged, or corrected. The task of rendering such AI-induced cultural drift visible and governable represents a natural extension of the individual-level interpretability concerns studied here. This thesis does not address frontier systems or societal-scale dynamics directly, but it contributes a principle that generalizes: interpretability claims should be grounded in measurable properties of outputs or independently validated explanations, not assumed from model performance alone.
+** Broader Implications for Interpretable and Accountable AI
+
+The interpretability challenges examined here are instances of a broader and accelerating challenge in AI. As models grow larger and more capable, the gap between system capability and human understanding of that capability widens. This applies not only to the constrained optimization and vision models studied in this thesis but also to large language models and multimodal foundation models [cite/p:@bommasaniOpportunitiesRisksFoundation2022]. The practical consequence is that humans are increasingly asked to rely on, oversee, and take responsibility for systems whose internal operations they cannot inspect. Mechanistic approaches that reverse-engineer internal computations [cite/p:@olahZoomIntroductionCircuits2020; @conmyAutomatedCircuitDiscovery2023] offer one response, but they remain largely disconnected from the user-facing interpretability that this thesis addresses: what matters at the point of deployment is not whether a researcher can decode a circuit in the model, but whether the person acting on the output can judge its adequacy.
+
+Regulatory frameworks are beginning to codify this concern. The EU AI Act [cite/p:@EU2024AIAct] classifies AI systems by risk level and requires that high-risk systems provide sufficient transparency for users to interpret outputs and exercise meaningful oversight. Crucially, oversight is not a procedural checkbox but a cognitive task: it is meaningful only when the output is structured or explained in a way that allows the responsible person to detect failures and intervene. As AI systems enter domains with direct consequences for individuals (healthcare, resource allocation, criminal justice) the ability to explain, challenge, and audit outputs becomes not merely a usability feature but a societal safeguard. The present findings contribute to this agenda by demonstrating two concrete mechanisms through which interpretability can be operationalized and measured: structural alignment of outputs with human cognition, and empirical validation of post-hoc explanations.
+
+Moreover, interpretability is not only an individual-level concern. This thesis studied settings in which a single user evaluates a single AI output: a planner judging a solution, a clinician checking a prediction. However, as AI models (particularly large language models) increasingly mediate everyday communication, the question shifts from whether one person can understand one output to whether communities can discern how their shared information environment is being systematically reshaped [cite/p:@brinkmannMachineCulture2023; @souratiHomogenizingEffectLarge2026]. When language models generate text at scale, subtle distributional shifts in vocabulary, framing, and argumentation may accumulate into cultural-level effects that no individual user is positioned to detect. The core problem is structurally the same as the one studied here: AI outputs that are not transparent to the people affected by them cannot be judged, challenged, or corrected. The task of rendering such AI-induced cultural drift visible and governable represents a natural extension of the individual-level interpretability concerns studied in this thesis. While the present work does not address frontier systems or societal-scale dynamics directly, it contributes a general principle that applies across scales: interpretability claims should be grounded in measurable properties of outputs or independently validated explanations, not inferred solely from model performance.
+
+** Open science practices and AI disclosure
+
+Both studies followed open science practices. Research materials, anonymized data, and analysis code are publicly archived (packing study: https://osf.io/4wjgp/; fear-prediction study: https://osf.io/8b5a2/). The confirmatory packing study was preregistered prior to data collection (https://doi.org/10.17605/OSF.IO/D2AQ7), with deviations documented in the chapter. During the preparation of this thesis, language-processing tools (including large language models and translation software) were used for language editing. All scientific content, including research design, analysis, interpretation, and argumentation, is the author's own work.
+
 
 ** Conclusion
 
 
-
-This thesis studied interpretability in two domains where AI outputs must be accessible to the humans who act on them. In combinatorial decision support, people systematically preferred equally optimal solutions whose structure aligned with familiar cognitive patterns: heuristic construction rules, compositional simplicity, and visual order. These preferences identify measurable properties that can guide the selection and presentation of machine-generated plans. In affective vision for digital mental health, pretrained vision models predicted group-level fear from spider images with good accuracy under strict out-of-sample evaluation, and post-hoc attribution analyses provided evidence consistent with predictions being grounded in task-relevant visual cues. A systematic error analysis further characterized where generalization is most fragile. The two domains required different strategies (output selection in one case, explanation validation in the other), but both demonstrate that attending to what humans can understand, verify, and act on is a necessary complement to the optimization of system outputs.
+This thesis studied interpretability in two domains where AI outputs must be accessible to the humans who act on them. In combinatorial decision support, people systematically preferred equally optimal solutions whose structure aligned with familiar cognitive patterns: heuristic construction rules, compositional simplicity, and visual order. These preferences identify measurable properties that can guide the selection and presentation of machine-generated plans. In affective vision for digital mental health, pretrained vision models predicted group-level fear from spider images with good accuracy under strict out-of-sample evaluation, and post-hoc attribution analyses provided evidence consistent with predictions being grounded in task-relevant visual cues. A systematic error analysis further characterized where generalization is most fragile. The two domains required different strategies: output selection in one case and explanation validation in the other. Yet, both demonstrate that attending to what humans can understand, verify, and act on is a necessary complement to the optimization of system outputs. As AI systems assume greater roles in consequential decisions, building this complementarity into their design is not a convenience but a responsibility.
 
 
 
@@ -1196,8 +1384,7 @@ This thesis studied interpretability in two domains where AI outputs must be acc
 *** Deutsche Zusammenfassung
 
 
-#+LATEX: \lettrine[lines=3, lhang=0.1, nindent=0.5em]{K}{ünstliche Intelligenz (KI) kann optimale Ergebnisse liefern und trotz-}
-dem nutzlos sein, wenn niemand diese Ergebnisse versteht, begründen oder sicher umsetzen kann. Diese Dissertation untersucht Interpretierbarkeit als kontxtabhängige Anforderung an die Mensch--KI-Zusammenarbeit in zwei Bereichen: kombinatorischer Entscheidungsunterstützung und affektiver Bildverarbeitung für die digitale psychische Gesundheit. Im einen Bereich wird untersucht, wie die Struktur KI-generierter Ausgaben menschliche Interpretierbarkeitsurteile formt. Im anderen wird gefragt, ob Post-hoc-Erklärungen von Modellvorhersagen anhand aufgabenrelevanter Hinweisreize überprüft werden können. Im einen Fall muss die Ausgabe für sich selbst sprechen; im anderen muss ihre Erklärung unabhängig verifiziert werden. Gemeinsam zeigen die beiden Studien, dass Interpretierbarkeit keine einzelne Eigenschaft ist, sondern von Aufgabe, Ausgabeformat und Nutzer abhängt. Kapitel [[#ch-packing]] untersucht Interpretierbarkeit unter gleichwertig optimalen Lösungen eines kombinatorischen Packungsproblems. In einem Forced-Choice-Paradigma bevorzugten Teilnehmende konsistent Lösungen, die einer einfachen Heuristik entsprachen, einfachere Kompositionen aufwiesen und in einer geordneten, regelhaften Darstellung präsentiert wurden. Wennn Lösungen größere Übereinstimmung mit der Heuristik aufwiesen, beschleunigte das die Entscheidungen in manchen Bedingungen. Die Ergebnisse identifizieren drei quantifizierbare strukturelle Kriterien, die es Menschen erleichtern, maschinell erzeugte Pläne zu begründen. Kapitel [[#ch-cv]] bewertet vortrainierte Bildmodelle, die gruppenbasierte Furchtbewertungen aus Spinnenbildern für den potenziellen Einsatz in computerisierter Expositionstherapie vorhersagen. Faltungs- und Transformer-Architekturen, die unter strenger Out-of-Sample-Evaluation feinabgestimmt wurden, generalisierten auf neue Beurteilerinnen und Beurteiler sowie neue Bilder. Das beste Einzelmodell erreichte einen mittleren absoluten Fehler von etwa 10 Einheiten auf der Furchtskala von 0--100. Grad-CAM-Attributionsanalysen zeigten, dass die Modellattributionen vorwiegend auf spinnenrelevante Bildregionen konzentriert waren; dieses Ergebnis ist mit der Interpretation vereinbar, dass die Vorhersagen in klinisch relevanten Hinweisreizen verankert sind. Angepasste Lernkurven klärten den Datenbedarf und eine systematische Fehleranalyse zeigte auf, wo die Generalisierung am fragilsten ist. Zusammen verbinden die Befunde psychologische Theorie mit KI-Praxis und ergeben Gestaltungsprinzipien: Ausgaben auswählen und präsentieren, die an vertraute Strukturen angepasst sind, wenn gleichwertige Alternativen existieren; validieren, dass opake Modelle auf aufgabenrelevante Hinweisreize statt auf zufällige Korrelationen angewiesen sind; und unter strengen Generalisierungstests evaluieren.
+#+LATEX: \lettrine[lines=3, lhang=0.1, nindent=0.5em]{D}{ie Nützlichkeit von Systemen der künstlichen Intelligenz (KI) lässt} sich nicht allein aus deren Korrektheit ableiten. Selbst technisch korrekte Ausgaben können in der Praxis scheitern, wenn Nutzerinnen und Nutzer sie nicht verstehen, begründen oder sicher umsetzen können. Diese Dissertation untersucht Interpretierbarkeit als kontxtabhängige Anforderung an die Mensch--KI-Zusammenarbeit in zwei Bereichen: kombinatorischer Entscheidungsunterstützung und affektiver Bildverarbeitung für die digitale psychische Gesundheit. Im einen Bereich wird untersucht, wie die Struktur KI-generierter Ausgaben menschliche Interpretierbarkeitsurteile formt. Im anderen wird gefragt, ob Post-hoc-Erklärungen von Modellvorhersagen anhand aufgabenrelevanter Hinweisreize überprüft werden können. Im einen Fall muss die Ausgabe für sich selbst sprechen; im anderen muss ihre Erklärung unabhängig verifiziert werden. Gemeinsam zeigen die beiden Studien, dass Interpretierbarkeit keine einzelne Eigenschaft ist, sondern von Aufgabe, Ausgabeformat und Nutzer abhängt. Die erste Studie untersucht Interpretierbarkeit unter gleichwertig optimalen Lösungen eines kombinatorischen Packungsproblems. In einem Forced-Choice-Paradigma bevorzugten Teilnehmende konsistent Lösungen, die einer einfachen Heuristik entsprachen, einfachere Kompositionen aufwiesen und in einer geordneten, regelhaften Darstellung präsentiert wurden. Wennn Lösungen größere Übereinstimmung mit der Heuristik aufwiesen, beschleunigte das die Entscheidungen in manchen Bedingungen. Die Ergebnisse identifizieren drei quantifizierbare strukturelle Kriterien, die es Menschen erleichtern, maschinell erzeugte Pläne zu begründen. Die zweite Studie bewertet vortrainierte Bildmodelle, die gruppenbasierte Furchtbewertungen aus Spinnenbildern für den potenziellen Einsatz in computerisierter Expositionstherapie vorhersagen. Faltungs- und Transformer-Architekturen, die unter strenger Out-of-Sample-Evaluation feinabgestimmt wurden, generalisierten auf neue Beurteilerinnen und Beurteiler sowie neue Bilder. Das beste Einzelmodell erreichte einen mittleren absoluten Fehler von etwa 10 Einheiten auf der Furchtskala von 0--100. Attributionsanalysen zeigten, dass die Modellattributionen vorwiegend auf spinnenrelevante Bildregionen konzentriert waren; dieses Ergebnis ist mit der Interpretation vereinbar, dass die Vorhersagen in klinisch relevanten Hinweisreizen verankert sind. Angepasste Lernkurven klärten den Datenbedarf und eine systematische Fehleranalyse zeigte auf, wo die Generalisierung am fragilsten ist. Zusammen verbinden die Befunde psychologische Theorie mit KI-Praxis und ergeben Gestaltungsprinzipien: Ausgaben auswählen und präsentieren, die an vertraute Strukturen angepasst sind, wenn gleichwertige Alternativen existieren; validieren, dass opake Modelle auf aufgabenrelevante Hinweisreize statt auf zufällige Korrelationen angewiesen sind; und unter strengen Generalisierungstests evaluieren.
 
 \newpage
 ** Supplementary Information Chapter 1

@@ -108,3 +108,5 @@
 #+LATEX_HEADER: \usepackage{upquote}
 #+LATEX_HEADER: \lstset{basicstyle=\ttfamily\small, breaklines=true}
 
+# for illustration
+#+LATEX_HEADER: \usepackage{tikz}
