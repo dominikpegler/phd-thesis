@@ -42,14 +42,13 @@ Even though the methods and results sections are typically written in past tense
 
 # Thank you to my advisors, colleagues, friends, and family who supported this work.
 
-I would like to thank everyone who helped me bring this project to a successful conclusion over the past three years: Alex, Annika, Cindy, Daniel, David, Filip, Frank, Kathrin, Mauricio and Mengfan. Thank you for being there. Thank you, Lilla.
+I would like to thank everyone who helped me bring this project to a successful conclusion over the past three years: Alex, Annika, Cindy, Daniel, David, Filip, Frank in Vienna, Frank in Darmstadt, Kathrin, Mauricio and Mengfan. Thank you for being there. Thank you, Lilla.
 
 #+begin_comment
-Lange Zeit hatte ich den Glauben, dass alles im Leben alleine schaffbar sein muss, ohne fremde Hilfe. Und dass fremde Hilfe oft nur ein lästiger, unkontrollierbarer Störfaktor ist. Diese paar Jahre in der Wissenschaft haben mir hier die Augen geöffnet und eine Korrektur ermöglicht. Deshalb möchte ich mich an dieser Stelle bei einigen wichtigen Begleitern bedanken: bei Filip, weil er mich speziell in den ersten Phasen des Doktorats mit den nötigen Werkzeugen ausgestattet hat, mir Vertrauen und Argumente gegeben hat, wenn ich vom eingeschlagenen Weg nicht überzeugt war, und mir beigebracht hat, dass es nichts gibt, das nicht hinterfragenswert ist; bei Frank, weil er ... 
+Lange Zeit hatte ich den Glauben, dass alles im Leben alleine schaffbar sein muss, ohne fremde Hilfe. Und dass fremde Hilfe oft nur ein lästiger, unkontrollierbarer Störfaktor ist. Diese paar Jahre in der Wissenschaft haben mir hier die Augen geöffnet und eine Korrektur ermöglicht. Deshalb möchte ich mich an dieser Stelle bei einigen wichtigen Begleitern bedanken: bei Filip Melinscak, weil er mich speziell in den ersten Phasen des Doktorats mit den nötigen Werkzeugen ausgestattet hat, mir Vertrauen und Argumente gegeben hat, wenn ich vom eingeschlagenen Weg nicht überzeugt war, und mir beigebracht hat, dass es nichts gibt, das nicht hinterfragenswert ist; bei meinem Supervisor Frank Scharnowski, weil seine Türe immer offen war, für seinen unverwüstlichen Geduldsfaden, und weil er einem immer das Gefühl gibt, dass es ihm wichtig ist, dass es einem gut geht; bei meinem Host in Darmstadt, Frank Jäkel, für den vielen regen Gedankenaustausch und die lebedinge Kollaboration und den Enthusiamsus, den er immer versprueht hat, das hat es zu einer Freude gemacht in der Wissenschaft zu arbeiten.
 #+end_comment
 
 # #+LATEX:{\vspace*{\fill}\begin{center}{\fontsize{10cm}{1cm}\selectfont \bfseries{Ty!}}\end{center}\vspace*{\fill}}
- 
 
 * Abstract
   :PROPERTIES:
@@ -66,7 +65,6 @@ The first study investigates what makes one algorithmic solution easier to under
 The second study evaluates pretrained vision models that predict group-level fear from spider images, with potential application in computerized exposure therapy. Convolutional and transformer architectures, fine-tuned and evaluated under strict out-of-sample conditions, generalized to new raters and new images. The best single model achieved a mean absolute error of approximately 10 units on the 0--100 fear scale. Grad-CAM attribution analyses showed that model attention concentrated on spider-relevant image regions, providing evidence consistent with predictions being anchored in clinically relevant cues rather than incidental correlations. Fitted learning curves clarified data requirements, and a systematic error analysis revealed conditions under which predictions are most fragile -- particularly at extreme fear levels and for visually complex or unusual images.
 
 Together, the findings show that interpretability depends on the task, the output, and the user. For structured decision-support problems, interpretability can be enhanced by selecting outputs whose structure aligns with familiar cognitive patterns. For opaque prediction models, interpretability requires validated evidence that predictions are based on task-relevant information. The central conclusion is that AI systems should be evaluated not only by whether they are correct, but also by whether humans can understand, verify, and responsibly act on their outputs.
-
 
 * Contents                                                           :ignore:
 #+TOC: headlines 2
